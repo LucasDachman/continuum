@@ -1,7 +1,19 @@
-.App header {
-  font-family: 'Helvetica Neue';
+#App {
+  margin: auto;
+}
+
+#sequencer {
+  margin: auto;
 }
 
 #piano {
   margin: auto;
+}
+
+#amp-env {
+  margin: auto;
+}
+
+#amp-env div {
+  display: inline-block;
 }
