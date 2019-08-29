@@ -1,3 +1,7 @@
 .App header {
   font-family: 'Helvetica Neue';
 }
+
+#piano {
+  margin: auto;
+}
