@@ -100,9 +100,65 @@ export default class CSynth {
   setAmpRelease(ratio) {
     this.synth.set({
       envelope: {
-        release: (ratio * 10) + 0.01
+        release: (ratio * 100) + 0.01
       }
     });
+  }
+
+  setFilterAttack(ratio) {
+    this.synth.set({
+      filterEnvelope: {
+        attack: ratio + 0.01
+      }
+    });
+  }
+
+  setFilterDecay(ratio) {
+    this.synth.set({
+      filterEnvelope: {
+        decay: ratio + 0.01
+      }
+    });
+  }
+
+  setFilterSustain(ratio) {
+    this.synth.set({
+      filterEnvelope: {
+        sustain: ratio
+      }
+    });
+  }
+
+  setFilterRelease(ratio) {
+    this.synth.set({
+      filterEnvelope: {
+        release: (ratio * 100) + 0.01
+      }
+    });
+  }
+
+  setFilterBase(ratio) {
+    this.synth.set({
+      filterEnvelope: {
+        baseFrequency: ratio * 2000
+      }
+    });
+  }
+
+  setFilterRange(ratio) {
+    this.synth.set({
+      filterEnvelope: {
+        octaves: ratio * 20
+      }
+    });
+  }
+
+  setFilterQ(ratio) {
+    this.synth.set({
+      filter: {
+        Q: ratio * 10
+      }
+    })
   }
 
   start() {

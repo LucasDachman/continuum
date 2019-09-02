@@ -28,14 +28,6 @@ const App = () => {
     if (!audioContextStarted) return;
     const synth = new CSynth(tickTime);
 
-    // const piano = new Nexus.Piano('#piano', { lowNote, highNote });
-    // piano.on('change', ({ note, state }) => {
-    //   if (state === true)
-    //     synth.triggerAttack(mtof(note));
-    //   else
-    //     synth.triggerRelease(mtof(note));
-    // });
-
     const sequencer = new Nexus.Sequencer('#sequencer', {
       rows: 12,
       columns: 16
@@ -57,6 +49,7 @@ const App = () => {
     playButton.on('change', state => state ? synth.start() : synth.stop());
 
     // KNOBS
+    // AMP
     const ampAttack = new Nexus.Dial('#amp-attack');
     ampAttack.on('change', v => synth.setAmpAttack(v));
 
@@ -69,6 +62,28 @@ const App = () => {
     const ampRelease = new Nexus.Dial('#amp-release');
     ampRelease.on('change', v => synth.setAmpRelease(v));
 
+    // Filter
+    const filterAttack = new Nexus.Dial('#filter-attack');
+    filterAttack.on('change', v => synth.setFilterAttack(v));
+
+    const filterDecay = new Nexus.Dial('#filter-decay');
+    filterDecay.on('change', v => synth.setFilterDecay(v));
+
+    const filterSustain = new Nexus.Dial('#filter-sustain');
+    filterSustain.on('change', v => synth.setFilterSustain(v));
+
+    const filterRelease = new Nexus.Dial('#filter-release');
+    filterRelease.on('change', v => synth.setFilterRelease(v));
+
+    const filterBase = new Nexus.Dial('#filter-base');
+    filterBase.on('change', v => synth.setFilterBase(v));
+
+    const filterRange = new Nexus.Dial('#filter-range');
+    filterRange.on('change', v => synth.setFilterRange(v));
+
+    const filterQ = new Nexus.Dial('#filter-q');
+    filterQ.on('change', v => synth.setFilterQ(v));
+
   }, [audioContextStarted]);
 
   // actual render code
@@ -76,21 +91,47 @@ const App = () => {
   return !audioContextStarted ? 'Click' : (
     <div className='App'>
       <section id='amp-env'>
-        <div id='amp-attack'></div>
-        <div id='amp-decay'></div>
-        <div id='amp-sustain'></div>
-        <div id='amp-release'></div>
+        <h2>Amp Env</h2>
+        <div className='knob-row'>
+          <div className='knob'><div id='amp-attack' />Attack</div>
+          <div className='knob' ><div id='amp-decay' />Decay</div>
+          <div className='knob' ><div id='amp-sustain' />Sustain</div>
+          <div className='knob' ><div id='amp-release' />Release</div>
+        </div>
       </section>
-      {/* <section id='filter-env'>
-        <div id='filter-attack'></div>
-        <div id='filter-decay'></div>
-        <div id='filter-sustain'></div>
-        <div id='filter-release'></div>
-        <div id='filter-min'></div>
-        <div id='filter-max'></div>
-        <div id='filter-q'></div>
-      </section> */}
-      {/* <div id='piano'></div> */}
+      <section id='filter-env'>
+        <h2>Filter</h2>
+        <div className='knob-row'>
+          <div className='knob'>
+            <div id='filter-attack' />
+            Attack
+          </div>
+          <div className='knob'>
+            <div id='filter-decay' />
+            Decay
+          </div>
+          <div className='knob'>
+            <div id='filter-sustain' />
+            Sustain
+          </div>
+          <div className='knob'>
+            <div id='filter-release' />
+            Release
+          </div>
+          <div className='knob'>
+            <div id='filter-base' />
+            Base
+          </div>
+          <div className='knob'>
+            <div id='filter-range' />
+            Range
+          </div>
+          <div className='knob'>
+            <div id='filter-q' />
+            Q
+          </div>
+        </div>
+      </section>
       <div id='play-button'></div>
       <div id='sequencer'></div>
     </div>

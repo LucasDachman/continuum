@@ -12,8 +12,21 @@
 
 #amp-env {
   margin: auto;
+  text-align: center;
 }
 
-#amp-env div {
-  display: inline-block;
+#filter-env {
+  margin: auto;
+  text-align: center;
+}
+
+.knob-row {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.knob {
+  width: 100px;
+  height: 100px;
 }
