@@ -7,7 +7,7 @@ import './App.css';
 const Nexus = window.Nexus;
 const { mtof } = Nexus;
 
-const lowNote = 36;
+const lowNote = 24;
 const highNote = 72;
 const tickTime = 170;
 
@@ -29,7 +29,7 @@ const App = () => {
     const synth = new CSynth(tickTime);
 
     const sequencer = new Nexus.Sequencer('#sequencer', {
-      rows: 12,
+      rows: 24,
       columns: 16
     });
     sequencer.on('change', ({ row, column: index, state }) => {
@@ -53,10 +53,10 @@ const App = () => {
     const ampAttack = new Nexus.Dial('#amp-attack');
     ampAttack.on('change', v => synth.setAmpAttack(v));
 
-    const ampDecay = new Nexus.Dial('#amp-decay');
+    const ampDecay = new Nexus.Dial('#amp-decay', { value: 0.5 });
     ampDecay.on('change', v => synth.setAmpDecay(v));
 
-    const ampSustain = new Nexus.Dial('#amp-sustain');
+    const ampSustain = new Nexus.Dial('#amp-sustain', { value: 1 });
     ampSustain.on('change', v => synth.setAmpSustain(v));
 
     const ampRelease = new Nexus.Dial('#amp-release');
@@ -66,10 +66,10 @@ const App = () => {
     const filterAttack = new Nexus.Dial('#filter-attack');
     filterAttack.on('change', v => synth.setFilterAttack(v));
 
-    const filterDecay = new Nexus.Dial('#filter-decay');
+    const filterDecay = new Nexus.Dial('#filter-decay', { value: 0.5 });
     filterDecay.on('change', v => synth.setFilterDecay(v));
 
-    const filterSustain = new Nexus.Dial('#filter-sustain');
+    const filterSustain = new Nexus.Dial('#filter-sustain', { value: 1 });
     filterSustain.on('change', v => synth.setFilterSustain(v));
 
     const filterRelease = new Nexus.Dial('#filter-release');
@@ -133,7 +133,7 @@ const App = () => {
         </div>
       </section>
       <div id='play-button'></div>
-      <div id='sequencer'></div>
+      <div id='sequencer' />
     </div>
   );
 }
