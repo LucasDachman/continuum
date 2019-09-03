@@ -3,6 +3,8 @@ import Synth1 from './Synth1/Synth1';
 import Tone from 'tone';
 import startAudioContext from 'startaudiocontext';
 import './App.css';
+import { Provider } from 'react-redux';
+import store from '../redux/store';
 
 const App = () => {
   const [isPlaying, setPlaying] = useState(false);
@@ -16,14 +18,14 @@ const App = () => {
   }, []);
 
   return !audioContextStarted ? 'Click' : (
-    <>
+    <Provider store={store}>
       <button id='play-button'
         onClick={() => setPlaying(!isPlaying)}
       >
         {isPlaying ? 'Stop' : 'Play'}
       </button>
       <Synth1 isPlaying={isPlaying} />
-    </>
+    </Provider>
   );
 }
 

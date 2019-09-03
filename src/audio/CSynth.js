@@ -16,12 +16,12 @@ export default class CSynth {
       .fill(null).map(v => []);
     this.step = 0;
     this.frequencyOffset = 0;
-    this.loop = new Tone.Loop(this.loopCallback, '16n')
+    this.loop = new Tone.Loop(this._loopCallback, '16n')
   }
 
-  loopCallback = (time) => {
+  _loopCallback = (time) => {
     this._onTick(time, this.step);
-    const nextChord = this.nextNotes().map(note => note + this.frequencyOffset * 10);
+    const nextChord = this._nextNotes().map(note => note + this.frequencyOffset * 10);
     // console.log('next chord:', nextChord)
     nextChord.length > 0 &&
       this.synth.triggerAttackRelease(nextChord, '16n', time);
@@ -34,37 +34,33 @@ export default class CSynth {
     }, time + 0.1)
   }
 
-  nextNotes() {
+  _nextNotes() {
     let nextChord = this.chords[this.step] || [];
     this.step++;
     if (this.step >= this.chords.length) this.step = 0;
     return nextChord;
   }
 
-  addNote({ index, freq }) {
+  addNote = ({ index, freq }) => {
     const chord = this.chords[index];
     if (!chord.includes(freq)) {
       chord.push(freq);
     }
   }
 
-  removeNote({ index, freq }) {
+  removeNote = ({ index, freq }) => {
     this.chords[index] = this.chords[index].filter(value => value !== freq);
   }
 
-  triggerAttack(frequency) {
+  triggerAttack = (frequency) => {
     this.synth.triggerAttack(frequency);
   }
 
-  triggerRelease(frequency) {
+  triggerRelease = (frequency) => {
     this.synth.triggerRelease(frequency);
   }
 
-  setNotes(chords) {
-    this.chords = chords;
-  }
-
-  setAmpAttack(ratio) {
+  setAmpAttack = (ratio) => {
     this.synth.set({
       envelope: {
         attack: ratio + 0.01
@@ -72,7 +68,7 @@ export default class CSynth {
     });
   }
 
-  setAmpDecay(ratio) {
+  setAmpDecay = (ratio) => {
     this.synth.set({
       envelope: {
         decay: ratio + 0.01
@@ -80,7 +76,7 @@ export default class CSynth {
     });
   }
 
-  setAmpSustain(ratio) {
+  setAmpSustain = (ratio) => {
     this.synth.set({
       envelope: {
         sustain: ratio
@@ -88,7 +84,7 @@ export default class CSynth {
     });
   }
 
-  setAmpRelease(ratio) {
+  setAmpRelease = (ratio) => {
     this.synth.set({
       envelope: {
         release: (ratio * 10) + 0.01
@@ -96,7 +92,7 @@ export default class CSynth {
     });
   }
 
-  setFilterAttack(ratio) {
+  setFilterAttack = (ratio) => {
     this.synth.set({
       filterEnvelope: {
         attack: (ratio / 5) + 0.01
@@ -104,7 +100,7 @@ export default class CSynth {
     });
   }
 
-  setFilterDecay(ratio) {
+  setFilterDecay = (ratio) => {
     this.synth.set({
       filterEnvelope: {
         decay: ratio + 0.01
@@ -112,7 +108,7 @@ export default class CSynth {
     });
   }
 
-  setFilterSustain(ratio) {
+  setFilterSustain = (ratio) => {
     this.synth.set({
       filterEnvelope: {
         sustain: ratio
@@ -120,7 +116,7 @@ export default class CSynth {
     });
   }
 
-  setFilterRelease(ratio) {
+  setFilterRelease = (ratio) => {
     this.synth.set({
       filterEnvelope: {
         release: (ratio * 100) + 0.01
@@ -128,7 +124,7 @@ export default class CSynth {
     });
   }
 
-  setFilterBase(ratio) {
+  setFilterBase = (ratio) => {
     this.synth.set({
       filterEnvelope: {
         baseFrequency: (ratio * 500) + 1
@@ -136,7 +132,7 @@ export default class CSynth {
     });
   }
 
-  setFilterRange(ratio) {
+  setFilterRange = (ratio) => {
     this.synth.set({
       filterEnvelope: {
         octaves: ratio * 20
@@ -144,7 +140,7 @@ export default class CSynth {
     });
   }
 
-  setFilterQ(ratio) {
+  setFilterQ = (ratio) => {
     this.synth.set({
       filter: {
         Q: ratio * 10
@@ -152,13 +148,13 @@ export default class CSynth {
     })
   }
 
-  start() {
+  start = () => {
     Tone.context.resume();
     // Tone.Transport.start();
     this.loop.start();
   }
 
-  stop() {
+  stop = () => {
     // Tone.Transport.stop();
     this.loop.stop();
     this.step = 0;
