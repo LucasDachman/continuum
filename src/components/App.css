@@ -1,5 +1,6 @@
 #App {
   margin: auto;
+  width: 90%;
 }
 
 #sequencer {
@@ -8,18 +9,23 @@
   margin: 0 auto 80px auto;
 }
 
-#piano {
-  margin: auto;
-}
-
 #amp-env {
-  margin: auto;
   text-align: center;
 }
 
 #filter-env {
-  margin: auto;
   text-align: center;
+}
+
+#frequency-offset {
+  margin: auto;
+  width: 150px;
+}
+
+#play-button {
+  width: 60px;
+  margin: auto;
+  display: block;
 }
 
 .knob-row {
