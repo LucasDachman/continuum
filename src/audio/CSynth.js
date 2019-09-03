@@ -11,25 +11,17 @@ export default class CSynth {
       oscillator: {
         type: 'sawtooth'
       },
-      filter: {
-        Q: 0
-      },
-      filterEnvelope: {
-        baseFrequency: 100,
-        octaves: 4.5,
-        release: 10
-      }
     });
     this.chords = new Array(16)
       .fill(null).map(v => []);
     this.step = 0;
-
+    this.frequencyOffset = 0;
     this.loop = new Tone.Loop(this.loopCallback, '16n')
   }
 
   loopCallback = (time) => {
     this._onTick(time, this.step);
-    const nextChord = this.nextNotes();
+    const nextChord = this.nextNotes().map(note => note + this.frequencyOffset * 10);
     // console.log('next chord:', nextChord)
     nextChord.length > 0 &&
       this.synth.triggerAttackRelease(nextChord, '16n', time);
@@ -46,7 +38,6 @@ export default class CSynth {
     let nextChord = this.chords[this.step] || [];
     this.step++;
     if (this.step >= this.chords.length) this.step = 0;
-    // find probabilities for each note
     return nextChord;
   }
 
@@ -100,7 +91,7 @@ export default class CSynth {
   setAmpRelease(ratio) {
     this.synth.set({
       envelope: {
-        release: (ratio * 100) + 0.01
+        release: (ratio * 10) + 0.01
       }
     });
   }
@@ -108,7 +99,7 @@ export default class CSynth {
   setFilterAttack(ratio) {
     this.synth.set({
       filterEnvelope: {
-        attack: ratio + 0.01
+        attack: (ratio / 5) + 0.01
       }
     });
   }
@@ -140,7 +131,7 @@ export default class CSynth {
   setFilterBase(ratio) {
     this.synth.set({
       filterEnvelope: {
-        baseFrequency: ratio * 2000
+        baseFrequency: (ratio * 500) + 1
       }
     });
   }
