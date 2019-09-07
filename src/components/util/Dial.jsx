@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import shortid from 'shortid';
+import {isNumber} from 'lodash';
 
 const Nexus = window.Nexus;
 
@@ -9,15 +10,17 @@ const Dial = ({ value, onChange }) => {
   const dial = useRef();
 
   useEffect(() => {
-    if (dial.current) {
+    if (!dial.current) {
+      dial.current = new Nexus.Dial(id.current, { value })
+      dial.current.on('change', onChange);
+    }
+  }, [value, onChange]);
+
+  useEffect(() => {
+    if (dial.current && isNumber(value)) {
       dial.current.value = value;
     }
   }, [value]);
-
-  useEffect(() => {
-    dial.current = new Nexus.Dial(id.current, { value })
-    dial.current.on('change', onChange);
-  }, [value, onChange]);
 
   return (
     <div id={id.current}></div>

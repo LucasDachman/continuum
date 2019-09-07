@@ -1,11 +1,15 @@
 import store from '../redux/store';
 import watch from 'redux-watch';
+import {get} from 'lodash';
 
 // use redux-watch to subscribe to a certain store value
-const subscribe = (path, callback) => store.subscribe(watch(store.getState, path)(callback));
+// and use the callback to set the initial value
+const subscribe = (path, callback) => {
+  store.subscribe(watch(store.getState, path)(callback));
+  callback(get(store.getState(), path));
+}
 
 export function subscribeCSynth(synth) {
-
   subscribe('synth1UI.amp.attack', synth.setAmpAttack);
   subscribe('synth1UI.amp.decay', synth.setAmpDecay);
   subscribe('synth1UI.amp.sustain', synth.setAmpSustain);
