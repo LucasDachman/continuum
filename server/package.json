@@ -1,0 +1,7 @@
+{
+  "name": "continuum-server",
+  "version": "1.0.0",
+  "dependencies": {
+    "continuum-shared": "1.0.0"
+  }
+}

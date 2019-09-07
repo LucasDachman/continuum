@@ -1,4 +1,4 @@
-import store from '../redux/store';
+import store from './store';
 import watch from 'redux-watch';
 import {get} from 'lodash';
 

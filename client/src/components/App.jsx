@@ -5,6 +5,8 @@ import startAudioContext from 'startaudiocontext';
 import './App.css';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
+import shared from 'continuum-shared';
+console.log(shared)
 
 const App = () => {
   const [isPlaying, setPlaying] = useState(false);
