@@ -1,7 +1,7 @@
 {
   "name": "continuum-shared",
   "version": "1.0.0",
-
   "dependencies": {
+    "redux-logger": "^3.0.6"
   }
 }

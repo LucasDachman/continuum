@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { connect } from 'react-redux';
+import { connect, useStore } from 'react-redux';
 import CSynth from '../../audio/CSynth';
 import { subscribeCSynth } from 'continuum-shared/redux/subscriptions';
 import { setAmp, setFilter } from 'continuum-shared/redux/reducers/synth1UIReducer';
@@ -29,7 +29,7 @@ const useSetCallback = (set, attr) => {
 }
 
 const Synth1 = ({ isPlaying, setAmp, setFilter, amp, filter }) => {
-
+  const store = useStore();
   // const [val, setVal] = useState(null);
   const [frequencyOffset, setFrequencyOffset] = useState('0');
 
@@ -45,13 +45,12 @@ const Synth1 = ({ isPlaying, setAmp, setFilter, amp, filter }) => {
     isPlaying ? synth.current.start() : synth.current.stop();
   }, [isPlaying, synth])
 
-
-  // runs when audio context has started
+  // runs once on first render
   useEffect(() => {
     // if (!audioContextStarted) return;
     synth.current = new CSynth(tickTime);
     const synthRef = synth.current;
-    subscribeCSynth(synthRef);
+    subscribeCSynth(store, synthRef);
 
     const sequencer = new Nexus.Sequencer('#sequencer', {
       rows: 24,
@@ -74,11 +73,9 @@ const Synth1 = ({ isPlaying, setAmp, setFilter, amp, filter }) => {
       sequencer.stepper.value = pos;
       sequencer.next();
     }
-  }, []);
+  }, [store]);
 
   // actual render code
-
-  console.log(useSetCallback(setAmp, 'attack'));
   return (
     <div className='App'>
       <section id='amp-env'>

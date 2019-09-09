@@ -1,10 +1,16 @@
-import { configureStore } from 'redux-starter-kit';
+import { configureStore, getDefaultMiddleware } from 'redux-starter-kit';
 import synth1UIReducer from './reducers/synth1UIReducer';
+import utilReducer from './reducers/utilReducer';
 
-const store = configureStore({
-  reducer: {
-    synth1UI: synth1UIReducer,
-  }
-});
+const makeStore = (middleware) => {
+  middleware = middleware ? middleware : [];
+  return configureStore({
+    reducer: {
+      synth1UI: synth1UIReducer,
+      util: utilReducer,
+    },
+    middleware: [...getDefaultMiddleware(), ...middleware]
+  })
+};
 
-export default store;
+export default makeStore;
