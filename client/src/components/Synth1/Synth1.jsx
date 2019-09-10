@@ -81,66 +81,66 @@ const Synth1 = ({ isPlaying, setAmp, setFilter, amp, filter }) => {
       <section id='amp-env'>
         <h2>Amp Env</h2>
         <div className='knob-row'>
-          <div className='knob'>
-            <Dial value={amp.attack}
-              onChange={useSetCallback(setAmp, 'attack')} />
+          <Dial
+            value={amp.attack}
+            onChange={useSetCallback(setAmp, 'attack')} >
             Attack
-          </div>
-          <div className='knob' >
-            <Dial value={amp.decay}
-              onChange={useSetCallback(setAmp, 'decay')} />
+          </Dial>
+          <Dial
+            value={amp.decay}
+            onChange={useSetCallback(setAmp, 'decay')} >
             Decay
-          </div>
-          <div className='knob' >
-            <Dial value={amp.sustain}
-              onChange={useSetCallback(setAmp, 'sustain')} />
+          </Dial>
+          <Dial
+            value={amp.sustain}
+            onChange={useSetCallback(setAmp, 'sustain')} >
             Sustain
-          </div>
-          <div className='knob' >
-            <Dial value={amp.release}
-              onChange={useSetCallback(setAmp, 'release')} />
+          </Dial>
+          <Dial
+            value={amp.release}
+            onChange={useSetCallback(setAmp, 'release')} >
             Release
-          </div>
+          </Dial>
         </div>
       </section>
       <section id='filter-env'>
         <h2>Filter</h2>
         <div className='knob-row'>
-          <div className='knob'>
-            <Dial value={filter.attack}
-              onChange={useSetCallback(setFilter, 'attack')} />
+          <Dial
+            value={filter.attack}
+            onChange={useSetCallback(setFilter, 'attack')} >
             Attack
-          </div>
-          <div className='knob'>
-            <Dial value={filter.decay}
-              onChange={useSetCallback(setFilter, 'decay')} />
+          </Dial>
+          <Dial
+            value={filter.decay}
+            onChange={useSetCallback(setFilter, 'decay')} >
             Decay
-          </div>
-          <div className='knob'>
-            <Dial value={filter.sustain}
-              onChange={useSetCallback(setFilter, 'sustain')} />
+          </Dial>
+          <Dial
+            value={filter.sustain}
+            onChange={useSetCallback(setFilter, 'sustain')} >
             Sustain
-          </div>
-          <div className='knob'>
-            <Dial value={filter.release}
-              onChange={useSetCallback(setFilter, 'release')} />
+          </Dial>
+          <Dial
+            value={filter.release}
+            onChange={useSetCallback(setFilter, 'release')} >
             Release
-          </div>
-          <div className='knob'>
-            <Dial value={filter.base}
-              onChange={useSetCallback(setFilter, 'base')} />
+          </Dial>
+          <Dial
+            value={filter.base}
+            onChange={useSetCallback(setFilter, 'base')} >
             Base
-          </div>
-          <div className='knob'>
-            <Dial value={filter.range}
-              onChange={useSetCallback(setFilter, 'range')} />
+          </Dial>
+          <Dial
+            value={filter.range}
+            onChange={useSetCallback(setFilter, 'range')} >
             Range
-          </div>
-          <div className='knob'>
-            <Dial value={filter.q}
-              onChange={useSetCallback(setFilter, 'q')} />
+          </Dial>
+          <Dial
+            value={filter.q}
+            onChange={useSetCallback(setFilter, 'q')} >
             Q
-          </div>
+          </Dial>
         </div>
       </section>
       <form id='frequency-offset'>
