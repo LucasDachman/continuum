@@ -5,12 +5,12 @@ import startAudioContext from 'startaudiocontext';
 import './App.css';
 import { Provider } from 'react-redux';
 import makeStore from 'continuum-shared/redux/store';
-import { createLogger } from 'redux-logger';
+// import { createLogger } from 'redux-logger';
 import { createEmitter } from '../socket/socketEmitter';
 
-const logger = createLogger({
-  collapsed: true
-});
+// const logger = createLogger({
+//   collapsed: true
+// });
 const [emitter, setupListener] = createEmitter();
 const store = makeStore([emitter]);
 setupListener(store);

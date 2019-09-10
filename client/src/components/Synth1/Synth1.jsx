@@ -2,78 +2,55 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { connect, useStore } from 'react-redux';
 import CSynth from '../../audio/CSynth';
 import { subscribeCSynth } from 'continuum-shared/redux/subscriptions';
-import { setAmp, setFilter } from 'continuum-shared/redux/reducers/synth1UIReducer';
+import { setAmp, setFilter }from 'continuum-shared/redux/reducers/synth1UIReducer';
 import Dial from '../util/Dial';
+import PianoRoll from '../piano-roll/PianoRoll';
 
-const Nexus = window.Nexus;
-const { mtof } = Nexus;
-
-const lowNote = 24;
-const highNote = 72;
 const tickTime = 170;
 
 const frequencyOffsetValues = new Array(7).fill(null).map((_, i) => String(i - 3));
 
 const mapDispatch = {
   setAmp,
-  setFilter
+  setFilter,
 };
 
 const mapStateToProps = state => ({
   amp: state.synth1UI.amp,
   filter: state.synth1UI.filter,
+  numSteps: state.synth1UI.numSteps,
 });
 
 const useSetCallback = (set, attr) => {
   return useCallback(v => set({ [attr]: v }), [set, attr]);
 }
 
-const Synth1 = ({ isPlaying, setAmp, setFilter, amp, filter }) => {
+const Synth1 = ({ isPlaying, setAmp, setFilter, amp, filter, numSteps }) => {
+
   const store = useStore();
-  // const [val, setVal] = useState(null);
+
   const [frequencyOffset, setFrequencyOffset] = useState('0');
+  const [currentStep, setCurrentStep] = useState(0);
 
-  const handleClickFrequencyOffset = e => {
-    synth.current.frequencyOffset = Number(e.currentTarget.value);
-    setFrequencyOffset(e.currentTarget.value);
-  }
+  const synth = useRef(new CSynth({bpm: tickTime, numSteps}));
 
-  const synth = useRef();
+  // runs once on first render
+  useEffect(() => {
+    subscribeCSynth(store, synth.current);
+    synth.current.onTick = step => {
+      setCurrentStep(step);
+    }
+  }, [store]);
 
   useEffect(() => {
     if (!synth.current) return;
     isPlaying ? synth.current.start() : synth.current.stop();
   }, [isPlaying, synth])
 
-  // runs once on first render
-  useEffect(() => {
-    // if (!audioContextStarted) return;
-    synth.current = new CSynth(tickTime);
-    const synthRef = synth.current;
-    subscribeCSynth(store, synthRef);
-
-    const sequencer = new Nexus.Sequencer('#sequencer', {
-      rows: 24,
-      columns: 16
-    });
-    sequencer.on('change', ({ row, column, state }) => {
-      window.localStorage.setItem('chords', JSON.stringify(sequencer.matrix.pattern));
-      const freq = mtof(lowNote - row + 24);
-      if (state) {
-        synthRef.addNote({ index: column, freq });
-      } else {
-        synthRef.removeNote({ index: column, freq });
-      }
-    });
-    const localChords = window.localStorage.getItem('chords');
-    if (localChords) {
-      sequencer.matrix.set.all(JSON.parse(localChords));
-    }
-    synthRef.onTick = (pos) => {
-      sequencer.stepper.value = pos;
-      sequencer.next();
-    }
-  }, [store]);
+  const handleClickFrequencyOffset = e => {
+    synth.current.frequencyOffset = Number(e.currentTarget.value);
+    setFrequencyOffset(e.currentTarget.value);
+  }
 
   // actual render code
   return (
@@ -159,8 +136,7 @@ const Synth1 = ({ isPlaying, setAmp, setFilter, amp, filter }) => {
           }
         </div>
       </form>
-      <div id='sequencer' />
-      {/* <Dial value={1} onChange={v => console.log(v)} /> */}
+      <PianoRoll currentStep={currentStep} />
     </div>
   );
 }

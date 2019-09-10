@@ -1,7 +1,7 @@
 import Tone from 'tone';
 
 export default class CSynth {
-  constructor(bpm) {
+  constructor({ bpm, numSteps }) {
     // this.loop.humanize = true;
     Tone.Transport.bpm.value = bpm;
     Tone.Transport.start();
@@ -12,7 +12,7 @@ export default class CSynth {
         type: 'sawtooth'
       },
     });
-    this.chords = new Array(16)
+    this.chords = new Array(numSteps)
       .fill(null).map(v => []);
     this.step = 0;
     this.frequencyOffset = 0;
@@ -22,7 +22,6 @@ export default class CSynth {
   _loopCallback = (time) => {
     this._onTick(time, this.step);
     const nextChord = this._nextNotes().map(note => note + this.frequencyOffset * 10);
-    // console.log('next chord:', nextChord)
     nextChord.length > 0 &&
       this.synth.triggerAttackRelease(nextChord, '16n', time);
   }
