@@ -12,7 +12,7 @@ const logger = createLogger({
   collapsed: true
 });
 const [emitter, setupListener] = createEmitter();
-const store = makeStore([emitter, logger]);
+const store = makeStore([emitter]);
 setupListener(store);
 
 const App = () => {

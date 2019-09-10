@@ -5,17 +5,18 @@ export const createEmitter = () => {
   const socket = io('http://localhost:4000');
 
   return [
+    // redux middleware
     store => next => action => {
+      const result = next(action);
       if (!action.origin) {
         socket.emit('action', { ...action, origin: socket.id });
       }
-      return next(action);
+      return result;
     },
+    // listen for actions
     store => {
       socket.on('action', action => {
-        if (action.origin !== socket.id) {
-          store.dispatch(action);
-        }
+        store.dispatch(action);
       });
     }]
 }
