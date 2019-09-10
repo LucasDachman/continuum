@@ -1,29 +1,22 @@
-import React, { useRef, useEffect } from 'react';
-import shortid from 'shortid';
-import {isNumber} from 'lodash';
+import React from 'react';
 
-const Nexus = window.Nexus;
+import {
+  CircularInput,
+  CircularTrack,
+  CircularProgress,
+  CircularThumb,
+} from 'react-circular-input'
 
 const Dial = ({ value, onChange }) => {
 
-  const id = useRef(shortid.generate());
-  const dial = useRef();
-
-  useEffect(() => {
-    if (!dial.current) {
-      dial.current = new Nexus.Dial(id.current, { value })
-      dial.current.on('change', onChange);
-    }
-  }, [value, onChange]);
-
-  useEffect(() => {
-    if (dial.current && isNumber(value)) {
-      dial.current.value = value;
-    }
-  }, [value]);
-
   return (
-    <div id={id.current}></div>
+    <CircularInput radius={40}
+      value={value}
+      onChange={onChange}>
+      <CircularTrack strokeWidth={14} />
+      <CircularProgress strokeWidth={14}/>
+      <CircularThumb r='8' />
+    </CircularInput>
   );
 }
 
