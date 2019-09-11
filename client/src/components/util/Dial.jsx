@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 
 import {
   CircularInput,
@@ -23,4 +23,4 @@ const Dial = ({ value, onChange, children }) => {
   );
 }
 
-export default Dial;
+export default memo(Dial);
