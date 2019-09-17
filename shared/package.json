@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "object-path": "^0.11.4",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "redux-starter-kit": "^0.7.0"
   }
 }

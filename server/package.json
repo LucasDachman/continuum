@@ -2,16 +2,23 @@
   "name": "continuum-server",
   "version": "1.0.0",
   "dependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/node": "^7.6.1",
-    "@babel/preset-env": "^7.6.0",
     "continuum-shared": "1.0.0",
     "express": "^4.17.1",
     "nodemon": "^1.19.2",
     "socket.io": "^2.2.0"
   },
   "scripts": {
-    "start": "nodemon --exec babel-node --root-mode upward --ignore=\"node_modules\" src/index.js"
+    "start": "nodemon --exec babel-node --root-mode upward --ignore=\"node_modules\" src/index.js",
+    "clean": "rm -rf build && mkdir build",
+    "build-server": "babel src -d build --filename=\"continuum-server\" --root-mode upward --ignore=__fake__",
+    "build": "yarn clean && yarn build-server"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@babel/cli": "^7.6.0",
+    "@babel/core": "^7.6.0",
+    "@babel/node": "^7.6.1",
+    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
+    "@babel/preset-env": "^7.6.0"
+  }
 }
