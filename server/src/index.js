@@ -11,6 +11,8 @@ const server = http.createServer(app);
 const io = socketIo(server);
 const store = makeStore([nodeLogger]);
 
+io.set('transports', ['websocket']);
+
 app.get('/', (req, res) => {
   res.send('Hello World!')
 });
