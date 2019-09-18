@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 
 export const createEmitter = () => {
 
-  const socket = io('http://localhost:4000', {transports: ['websocket']});
+  const socket = io(process.env.REACT_APP_SERVER_URI, {transports: ['websocket']});
 
   return [
     // redux middleware

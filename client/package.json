@@ -20,11 +20,11 @@
     "tone": "^13.8.25"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_SERVER_URI=localhost:4000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy-gh": "yarn build && node ./deploy/deploy-gh.js"
+    "deploy-gh": "REACT_APP_SERVER_URI=https://continuum-7.appspot.com yarn build && node ./deploy/deploy-gh.js"
   },
   "eslintConfig": {
     "extends": "react-app"
