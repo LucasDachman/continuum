@@ -3,7 +3,7 @@ import http from 'http';
 import socketIo from 'socket.io';
 import { setupSocketEvents } from './socket-events.js';
 
-const port = 4000;
+const port = process.env.PORT ? process.env.PORT : 4000;
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
