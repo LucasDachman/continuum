@@ -1,0 +1,12 @@
+# continuum-server
+# https://cloud.google.com/appengine/docs/flexible/nodejs/reference/app-yaml
+
+
+runtime: nodejs
+env: flex
+
+network:
+  session_affinity: true
+
+manual_scaling:
+  instances: 5
