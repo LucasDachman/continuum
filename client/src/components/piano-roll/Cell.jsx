@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { connect, useSelector } from 'react-redux';
-import { setCompositionCell } from 'continuum-shared/redux/reducers/synth1UIReducer';
-import { isBlack } from 'continuum-shared/util/notes-util';
+import { setCompositionCell } from '../../redux/reducers/synth1UIReducer';
+import { isBlack } from '../../util/notes-util';
 
 const mapDispatchToProps = {
   setCompositionCell

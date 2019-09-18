@@ -4,7 +4,7 @@ import Tone from 'tone';
 import startAudioContext from 'startaudiocontext';
 import './App.css';
 import { Provider } from 'react-redux';
-import makeStore from 'continuum-shared/redux/store';
+import makeStore from '../redux/store';
 // import { createLogger } from 'redux-logger';
 import { createEmitter } from '../socket/socketEmitter';
 

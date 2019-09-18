@@ -15,18 +15,11 @@ module.exports = function (api) {
   ];
   const plugins = ["@babel/plugin-transform-modules-commonjs"];
 
-  const babelrcRoots = [
-    ".",
-    "shared/*",
-    "server/*"
-  ];
-
   const ignore = ['**/node_modules'];
 
   return {
     presets,
     plugins,
-    babelrcRoots,
     ignore
   };
 }

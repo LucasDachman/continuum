@@ -1,7 +1,7 @@
 import React from 'react';
 import CellRow from './CellRow';
-import { isBlack } from 'continuum-shared/util/notes-util';
-import { setCompositionCell } from 'continuum-shared/redux/reducers/synth1UIReducer';
+import { isBlack } from '../../util/notes-util';
+import { setCompositionCell } from '../../redux/reducers/synth1UIReducer';
 import {connect} from 'react-redux';
 import './piano-roll.css';
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { connect, useStore } from 'react-redux';
 import CSynth from '../../audio/CSynth';
-import { subscribeCSynth } from 'continuum-shared/redux/subscriptions';
-import { setAmp, setFilter }from 'continuum-shared/redux/reducers/synth1UIReducer';
+import { subscribeCSynth } from '../../redux/subscriptions';
+import { setAmp, setFilter }from '../../redux/reducers/synth1UIReducer';
 import Dial from '../util/Dial';
 import PianoRoll from '../piano-roll/PianoRoll';
 

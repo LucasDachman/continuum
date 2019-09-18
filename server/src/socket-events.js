@@ -1,6 +1,5 @@
-export const setupSocketEvents = (store, socket) => {
+export const setupSocketEvents = (socket) => {
   socket.on('action', action => {
-    store.dispatch(action);
     socket.broadcast.emit('action', action);
   });
 };
