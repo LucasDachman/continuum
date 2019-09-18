@@ -6,7 +6,7 @@ import { get } from 'object-path';
 // and use the callback to set the initial value
 const subscribe = (store, path, callback) => {
   store.subscribe(watch(store.getState, path)(callback));
-  // callback(get(store.getState(), path));
+  callback(get(store.getState(), path));
 }
 
 export function subscribeCSynth(store, synth) {

@@ -19,6 +19,11 @@ const App = () => {
   const [isPlaying, setPlaying] = useState(false);
   const [audioContextStarted, setAudioContextStarted] = useState(false);
 
+  const handlePlay = () => {
+    Tone.context.resume();
+    setPlaying(!isPlaying)
+  }
+
   // runs once after first render
   useEffect(() => {
     startAudioContext(Tone.context).then(() => {
@@ -29,7 +34,7 @@ const App = () => {
   return !audioContextStarted ? 'Click' : (
     <Provider store={store}>
       <button id='play-button'
-        onClick={() => setPlaying(!isPlaying)}
+        onClick={handlePlay}
       >
         {isPlaying ? 'Stop' : 'Play'}
       </button>
