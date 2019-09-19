@@ -32,15 +32,16 @@ const Synth1 = ({ isPlaying, setAmp, setFilter, amp, filter, numSteps }) => {
   const [frequencyOffset, setFrequencyOffset] = useState('0');
   const [currentStep, setCurrentStep] = useState(0);
 
-  const synth = useRef(new CSynth({bpm: tickTime, numSteps}));
+  const synth = useRef();
 
   // runs once on first render
   useEffect(() => {
+    synth.current = new CSynth({bpm: tickTime, numSteps})
     subscribeCSynth(store, synth.current);
     synth.current.onTick = step => {
       setCurrentStep(step);
     }
-  }, [store]);
+  }, [store, numSteps]);
 
   useEffect(() => {
     if (!synth.current) return;
