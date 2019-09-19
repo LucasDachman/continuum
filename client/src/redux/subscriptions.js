@@ -28,7 +28,6 @@ export function subscribeCSynth(store, synth) {
     for (const [coli, cell] of row.entries()) {
       const path = String.raw`synth1UI.composition.${rowi}.${coli}.active`;
       subscribe(store, path, active => {
-        console.log(`${cell.note.name} changed to ${active}`)
         if (active) {
           synth.addNote({index: coli, freq: cell.note.frequency});
         } else {
