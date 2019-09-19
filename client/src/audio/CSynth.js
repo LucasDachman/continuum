@@ -6,8 +6,13 @@ export default class CSynth {
     Tone.Transport.bpm.value = bpm;
     Tone.Transport.start();
 
-    this.synth = new Tone.PolySynth(6, Tone.MonoSynth).toMaster();
+    this.synth = new Tone.PolySynth(6, Tone.MonoSynth)
+      .chain(
+        new Tone.Limiter(),
+        Tone.Master
+      );
     this.synth.set({
+      volume: -12,
       oscillator: {
         type: 'sawtooth'
       },
