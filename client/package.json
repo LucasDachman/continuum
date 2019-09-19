@@ -21,6 +21,7 @@
   },
   "scripts": {
     "start": "REACT_APP_SERVER_URI=localhost:4000 react-scripts start",
+    "watch": "REACT_APP_SERVER_URI=localhost:4000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
