@@ -1,5 +1,5 @@
 import React from 'react';
-import CellRow from './CellRow';
+import Cell from './Cell';
 import { isBlack } from '../../util/notes-util';
 import { setCompositionCell } from '../../redux/reducers/synth1Reducer';
 import { notes } from '../../redux/config-creators/compositionReducerConfig';
@@ -14,7 +14,7 @@ const mapDispatchToProps = {
   setCompositionCell
 }
 
-const PianoRoll = ({ activeColumn }) => {
+const PianoRoll = ({ activeColumn, composition }) => {
 
   return (
     <div className='piano-roll'>
@@ -31,12 +31,21 @@ const PianoRoll = ({ activeColumn }) => {
         })}
       </section>
       <section className='piano-roll-editor'>
-        {notes.map((n, rowI) => (
-          <CellRow
-            row={rowI}
-            black={isBlack(n)}
-            key={rowI} />
-        ))}
+        {
+          notes.map((n, rowI) =>
+            <section key={rowI} className={`step-row ${isBlack(n) ? 'black' : 'white'}`}>
+              {
+                composition[rowI].map((cell, colIndex) =>
+                  <Cell
+                    key={`${rowI}, ${colIndex}`}
+                    row={rowI}
+                    col={colIndex}
+                  />
+                )
+              }
+            </section>
+          )
+        }
       </section>
     </div>
   );

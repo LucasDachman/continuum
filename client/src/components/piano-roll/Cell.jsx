@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { setCompositionCell as setComp1 } from '../../redux/reducers/synth1Reducer';
 import { setCompositionCell as setComp2 } from '../../redux/reducers/synth2Reducer';
@@ -33,4 +33,4 @@ const Cell = ({ row, col, setComp1, setComp2 }) => {
 export default connect(
   null,
   mapDispatchToProps
-)(Cell);
+)(memo(Cell));
