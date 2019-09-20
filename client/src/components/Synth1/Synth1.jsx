@@ -1,14 +1,7 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { connect, useStore } from 'react-redux';
-import CSynth from '../../audio/CSynth';
-import { subscribeCSynth } from '../../redux/subscriptions';
+import React, { useCallback } from 'react';
+import { connect } from 'react-redux';
 import { setAmp, setFilter }from '../../redux/reducers/synth1UIReducer';
 import Dial from '../util/Dial';
-import PianoRoll from '../piano-roll/PianoRoll';
-
-const tickTime = 170;
-
-const frequencyOffsetValues = new Array(7).fill(null).map((_, i) => String(i - 3));
 
 const mapDispatch = {
   setAmp,
@@ -18,40 +11,13 @@ const mapDispatch = {
 const mapStateToProps = state => ({
   amp: state.synth1UI.amp,
   filter: state.synth1UI.filter,
-  numSteps: state.synth1UI.numSteps,
 });
 
 const useSetCallback = (set, attr) => {
   return useCallback(v => set({ [attr]: v }), [set, attr]);
 }
 
-const Synth1 = ({ isPlaying, setAmp, setFilter, amp, filter, numSteps }) => {
-
-  const store = useStore();
-
-  const [frequencyOffset, setFrequencyOffset] = useState('0');
-  const [currentStep, setCurrentStep] = useState(0);
-
-  const synth = useRef();
-
-  // runs once on first render
-  useEffect(() => {
-    synth.current = new CSynth({bpm: tickTime, numSteps})
-    subscribeCSynth(store, synth.current);
-    synth.current.onTick = step => {
-      setCurrentStep(step);
-    }
-  }, [store, numSteps]);
-
-  useEffect(() => {
-    if (!synth.current) return;
-    isPlaying ? synth.current.start() : synth.current.stop();
-  }, [isPlaying, synth])
-
-  const handleClickFrequencyOffset = e => {
-    synth.current.frequencyOffset = Number(e.currentTarget.value);
-    setFrequencyOffset(e.currentTarget.value);
-  }
+const Synth1 = ({ setAmp, setFilter, amp, filter}) => {
 
   // actual render code
   return (
@@ -121,23 +87,6 @@ const Synth1 = ({ isPlaying, setAmp, setFilter, amp, filter, numSteps }) => {
           </Dial>
         </div>
       </section>
-      <form id='frequency-offset'>
-        <h3>Frequency Offset</h3>
-        <div>
-          {
-            frequencyOffsetValues.map(value => {
-              return <input type='radio'
-                name='frequency-offset'
-                value={value}
-                key={value}
-                checked={frequencyOffset === value}
-                onChange={handleClickFrequencyOffset}
-              />
-            })
-          }
-        </div>
-      </form>
-      <PianoRoll currentStep={currentStep} />
     </div>
   );
 }

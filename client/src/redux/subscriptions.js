@@ -23,15 +23,18 @@ export function subscribeCSynth(store, synth) {
   subscribe(store, 'synth1UI.filter.range', synth.setFilterRange);
   subscribe(store, 'synth1UI.filter.q', synth.setFilterQ);
 
+}
+
+export function subscribeSequencer(store, sequencer) {
   const { composition } = store.getState().synth1UI;
   for (const [rowi, row] of composition.entries()) {
     for (const [coli, cell] of row.entries()) {
       const path = String.raw`synth1UI.composition.${rowi}.${coli}.active`;
       subscribe(store, path, active => {
         if (active) {
-          synth.addNote({index: coli, freq: cell.note.frequency});
+          sequencer.addNote({ index: coli, freq: cell.note.frequency });
         } else {
-          synth.removeNote({index: coli, freq: cell.note.frequency});
+          sequencer.removeNote({ index: coli, freq: cell.note.frequency });
         }
       });
     }
