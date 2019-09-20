@@ -18,8 +18,6 @@ const store = makeStore([actionEmitter]);
 setupActionListener(store);
 
 const tickTime = 170;
-const frequencyOffsetValues = new Array(7).fill(null).map((_, i) => String(i - 3));
-
 
 // synth1
 const synth1 = new CSynth('synth1');
@@ -38,17 +36,11 @@ subscribeSequencer(store, sequencer);
 const App = () => {
   const [isPlaying, setPlaying] = useState(false);
   const [audioContextStarted, setAudioContextStarted] = useState(false);
-  const [frequencyOffset, setFrequencyOffset] = useState('0');
   const [currentStep, setCurrentStep] = useState(0);
 
   const handlePlay = () => {
     Tone.context.resume();
     setPlaying(!isPlaying)
-  }
-
-  const handleClickFrequencyOffset = e => {
-    sequencer.frequencyOffset = Number(e.currentTarget.value);
-    setFrequencyOffset(e.currentTarget.value);
   }
 
   // runs once after first render
@@ -76,22 +68,6 @@ const App = () => {
         {isPlaying ? 'Stop' : 'Play'}
       </button>
       <Synth1 isPlaying={isPlaying} />
-      <form id='frequency-offset'>
-        <h3>Frequency Offset</h3>
-        <div>
-          {
-            frequencyOffsetValues.map(value => {
-              return <input type='radio'
-                name='frequency-offset'
-                value={value}
-                key={value}
-                checked={frequencyOffset === value}
-                onChange={handleClickFrequencyOffset}
-              />
-            })
-          }
-        </div>
-      </form>
       <PianoRoll currentStep={currentStep} />
     </Provider>
   );
