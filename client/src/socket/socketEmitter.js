@@ -18,5 +18,9 @@ export const createEmitter = () => {
       socket.on('action', action => {
         store.dispatch(action);
       });
+      socket.on('init', config => {
+        console.log(config);
+        console.log('You are player ', config.character);
+      });
     }]
 }

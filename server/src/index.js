@@ -15,7 +15,6 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', function (socket) {
-  console.log('a user connected');
   setupSocketEvents(socket);
 });
 
