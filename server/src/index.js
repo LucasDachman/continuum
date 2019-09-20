@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', function (socket) {
-  setupSocketEvents(socket);
+  setupSocketEvents(socket, io);
 });
 
 server.listen(port, () => console.log(`continuum-server listening on port ${port}!`));

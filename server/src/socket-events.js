@@ -3,17 +3,36 @@
 let characters = [1, 2];
 let users = {};
 
-export const setupSocketEvents = (socket) => {
+export const setupSocketEvents = (socket, ioServer) => {
 
+  // prevent extra users from joining
   if (characters.length === 0) {
     socket.emit('init', 'Session Full 🤷‍');
     socket.disconnect(true);
     return;
   }
+  const character = users[socket.id] = characters.shift();
 
-  users[socket.id] = characters.shift();
-  console.log(`User ${socket.id} (character ${users[socket.id]}) has joined the session.`)
-  socket.emit('init', { character: users[socket.id] });
+  // send initial state if someone is already in the session
+  const numUsers = Object.keys(users).length
+  if (numUsers > 1) {
+    const userId = Object.keys(users).filter(id => id !== socket.id)[0];
+
+    // get state from another user
+    ioServer.sockets.connected[userId].emit('GET_STATE', null, state => {
+      socket.emit('init', {
+        character,
+        numUsers,
+        state
+      });
+    });
+  }
+  else {
+    socket.emit('init', { character, numUsers });
+  }
+
+  console.log(`User ${socket.id} (character ${character}) has joined the session.`)
+
 
   // broadcast redux actions to all other users
   socket.on('action', action => {

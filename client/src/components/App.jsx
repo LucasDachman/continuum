@@ -1,37 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Synth1 from './Synth1/Synth1';
-import CSynth from '../audio/CSynth';
 import PianoRoll from './piano-roll/PianoRoll.jsx';
-import { subscribeCSynth, subscribeSequencer } from '../redux/subscriptions'
 import Tone from 'tone';
 import startAudioContext from 'startaudiocontext';
 import './App.css';
-import { Provider } from 'react-redux';
-import makeStore from '../redux/store';
-import { numSteps } from '../redux/config-creators/compositionReducerConfig';
-import { createEmitter } from '../socket/socketEmitter';
-import Sequencer from '../audio/Sequencer';
-
-// setup web sockets to listen for and emit redux actions
-const [actionEmitter, setupActionListener] = createEmitter();
-const store = makeStore([actionEmitter]);
-setupActionListener(store);
-
-const tickTime = 170;
-
-// synth1
-const synth1 = new CSynth('synth1');
-subscribeCSynth(store, synth1);
-
-// synth2
-const synth2 = new CSynth('synth2');
-subscribeCSynth(store, synth2);
-
-const sequencer = new Sequencer({ bpm: tickTime, numSteps })
-sequencer.createSequence(synth1);
-sequencer.createSequence(synth2);
-sequencer.sequences.synth2.frequencyOffset = 12;
-subscribeSequencer(store, sequencer);
+import { sequencer } from '../index'
 
 const App = () => {
   const [isPlaying, setPlaying] = useState(false);
@@ -61,7 +34,7 @@ const App = () => {
   }, [isPlaying])
 
   return !audioContextStarted ? 'Click' : (
-    <Provider store={store}>
+    <main>
       <button id='play-button'
         onClick={handlePlay}
       >
@@ -69,7 +42,7 @@ const App = () => {
       </button>
       <Synth1 isPlaying={isPlaying} />
       <PianoRoll currentStep={currentStep} />
-    </Provider>
+    </main>
   );
 }
 
