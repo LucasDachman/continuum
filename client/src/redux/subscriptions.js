@@ -10,33 +10,37 @@ const subscribe = (store, path, callback) => {
 }
 
 export function subscribeCSynth(store, synth) {
-  subscribe(store, 'synth1UI.amp.attack', synth.setAmpAttack);
-  subscribe(store, 'synth1UI.amp.decay', synth.setAmpDecay);
-  subscribe(store, 'synth1UI.amp.sustain', synth.setAmpSustain);
-  subscribe(store, 'synth1UI.amp.release', synth.setAmpRelease);
+  const synthName = synth.name;
+  subscribe(store, `${synthName}.amp.attack`, synth.setAmpAttack);
+  subscribe(store, `${synthName}.amp.decay`, synth.setAmpDecay);
+  subscribe(store, `${synthName}.amp.sustain`, synth.setAmpSustain);
+  subscribe(store, `${synthName}.amp.release`, synth.setAmpRelease);
 
-  subscribe(store, 'synth1UI.filter.attack', synth.setFilterAttack);
-  subscribe(store, 'synth1UI.filter.decay', synth.setFilterDecay);
-  subscribe(store, 'synth1UI.filter.sustain', synth.setFilterSustain);
-  subscribe(store, 'synth1UI.filter.release', synth.setFilterRelease);
-  subscribe(store, 'synth1UI.filter.base', synth.setFilterBase);
-  subscribe(store, 'synth1UI.filter.range', synth.setFilterRange);
-  subscribe(store, 'synth1UI.filter.q', synth.setFilterQ);
-
+  subscribe(store, `${synthName}.filter.attack`, synth.setFilterAttack);
+  subscribe(store, `${synthName}.filter.decay`, synth.setFilterDecay);
+  subscribe(store, `${synthName}.filter.sustain`, synth.setFilterSustain);
+  subscribe(store, `${synthName}.filter.release`, synth.setFilterRelease);
+  subscribe(store, `${synthName}.filter.base`, synth.setFilterBase);
+  subscribe(store, `${synthName}.filter.range`, synth.setFilterRange);
+  subscribe(store, `${synthName}.filter.q`, synth.setFilterQ);
 }
 
 export function subscribeSequencer(store, sequencer) {
-  const { composition } = store.getState().synth1UI;
-  for (const [rowi, row] of composition.entries()) {
-    for (const [coli, cell] of row.entries()) {
-      const path = String.raw`synth1UI.composition.${rowi}.${coli}.active`;
-      subscribe(store, path, active => {
-        if (active) {
-          sequencer.addNote({ index: coli, freq: cell.note.frequency });
-        } else {
-          sequencer.removeNote({ index: coli, freq: cell.note.frequency });
-        }
-      });
+  // subscribe each sequence to it's corresponding composition in the redux store
+  for (const [synthName, sequence] of Object.entries(sequencer.sequences)) {
+    const { composition } = store.getState()[synthName];
+    // subscribe to each cell in the matrix
+    for (const [rowi, row] of composition.entries()) {
+      for (const [coli, cell] of row.entries()) {
+        const path = String.raw`${synthName}.composition.${rowi}.${coli}.active`;
+        subscribe(store, path, active => {
+          if (active) {
+            sequence.addNote({ index: coli, freq: cell.note.frequency });
+          } else {
+            sequence.removeNote({ index: coli, freq: cell.note.frequency });
+          }
+        });
+      }
     }
   }
 }

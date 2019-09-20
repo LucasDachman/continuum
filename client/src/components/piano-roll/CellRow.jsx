@@ -6,7 +6,7 @@ const CellRow = ({ row, black }) => {
 
   const className = black ? 'black' : 'white';
 
-  const cells = useSelector(state => state.synth1UI.composition[row]);
+  const cells = useSelector(state => state.synth1.composition[row]);
 
   return (
     <section className={`step-row ${className}`}>

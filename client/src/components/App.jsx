@@ -8,6 +8,7 @@ import startAudioContext from 'startaudiocontext';
 import './App.css';
 import { Provider } from 'react-redux';
 import makeStore from '../redux/store';
+import { numSteps } from '../redux/config-creators/compositionReducerConfig';
 import { createEmitter } from '../socket/socketEmitter';
 import Sequencer from '../audio/Sequencer';
 
@@ -19,12 +20,19 @@ setupActionListener(store);
 const tickTime = 170;
 const frequencyOffsetValues = new Array(7).fill(null).map((_, i) => String(i - 3));
 
-const synth = new CSynth();
-subscribeCSynth(store, synth);
 
-const { numSteps } = store.getState().synth1UI;
+// synth1
+const synth1 = new CSynth('synth1');
+subscribeCSynth(store, synth1);
+
+// synth2
+const synth2 = new CSynth('synth2');
+subscribeCSynth(store, synth2);
+
 const sequencer = new Sequencer({ bpm: tickTime, numSteps })
-sequencer.synth = synth;
+sequencer.createSequence(synth1);
+sequencer.createSequence(synth2);
+sequencer.sequences.synth2.frequencyOffset = 12;
 subscribeSequencer(store, sequencer);
 
 const App = () => {
@@ -50,7 +58,7 @@ const App = () => {
       setAudioContextStarted(true);
     });
 
-    // callback for sequencer
+    // callback for sequencer1
     sequencer.onTick = step => {
       setCurrentStep(step);
     }

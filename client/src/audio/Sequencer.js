@@ -1,28 +1,32 @@
 import Tone from 'tone';
+import Sequence from './Sequence';
 
 export default class Sequencer {
 
-  chords = []
   step = 0;
-  frequencyOffset = 0;
+  numSteps = 0;
   onTick = null;
-  synth = null;
   loop = null;
+  sequences = {};
 
-  constructor({bpm, numSteps}) {
-    this.chords = new Array(numSteps)
-      .fill(null).map(v => []);
-
+  constructor({ bpm, numSteps }) {
+    this.numSteps = numSteps;
     Tone.Transport.bpm.value = bpm;
     Tone.Transport.start();
     this.loop = new Tone.Loop(this._loopCallback, '16n');
   }
 
   _loopCallback = (time) => {
+    // UI callback
     this._onTick(time, this.step);
-    const nextChord = this._nextNotes().map(note => note + this.frequencyOffset * 10);
-    nextChord.length > 0 &&
-      this.synth.synth.triggerAttackRelease(nextChord, '16n', time);
+    // trigger notes for each sequence
+    for (const seq of Object.values(this.sequences)) {
+      const nextChord = seq.getNotes(this.step)
+      nextChord.length > 0 &&
+        seq.synth.synth.triggerAttackRelease(nextChord, '16n', time);
+    }
+    this.step++;
+    if (this.step >= this.numSteps) this.step = 0;
   }
 
   _onTick(time, step) {
@@ -32,32 +36,16 @@ export default class Sequencer {
     }, time + 0.1)
   }
 
-  _nextNotes() {
-    let nextChord = this.chords[this.step] || [];
-    this.step++;
-    if (this.step >= this.chords.length) this.step = 0;
-    return nextChord;
-  }
-
-  addNote = ({ index, freq }) => {
-    const chord = this.chords[index];
-    if (!chord.includes(freq)) {
-      chord.push(freq);
-    }
-  }
-
-  removeNote = ({ index, freq }) => {
-    this.chords[index] = this.chords[index].filter(value => value !== freq);
+  createSequence = (synth) => {
+    this.sequences[synth.name] = new Sequence(synth, this.numSteps);
   }
 
   start = () => {
     Tone.context.resume();
-    // Tone.Transport.start();
     this.loop.start();
   }
 
   stop = () => {
-    // Tone.Transport.stop();
     this.loop.stop();
     this.step = 0;
   }

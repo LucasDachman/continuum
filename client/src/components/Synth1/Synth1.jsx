@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { connect } from 'react-redux';
-import { setAmp, setFilter }from '../../redux/reducers/synth1UIReducer';
+import { setAmp, setFilter } from '../../redux/reducers/synth1Reducer';
 import Dial from '../util/Dial';
 
 const mapDispatch = {
@@ -9,19 +9,19 @@ const mapDispatch = {
 };
 
 const mapStateToProps = state => ({
-  amp: state.synth1UI.amp,
-  filter: state.synth1UI.filter,
+  amp: state.synth1.amp,
+  filter: state.synth1.filter,
 });
 
 const useSetCallback = (set, attr) => {
   return useCallback(v => set({ [attr]: v }), [set, attr]);
 }
 
-const Synth1 = ({ setAmp, setFilter, amp, filter}) => {
+const Synth1 = ({ setAmp, setFilter, amp, filter }) => {
 
   // actual render code
   return (
-    <div className='App'>
+    <div className='synth-1'>
       <section id='amp-env'>
         <h2>Amp Env</h2>
         <div className='knob-row'>
@@ -70,6 +70,8 @@ const Synth1 = ({ setAmp, setFilter, amp, filter}) => {
             onChange={useSetCallback(setFilter, 'release')} >
             Release
           </Dial>
+        </div>
+        <div className='knob-row'>
           <Dial
             value={filter.base}
             onChange={useSetCallback(setFilter, 'base')} >

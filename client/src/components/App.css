@@ -10,11 +10,6 @@ h2 {
   font-weight: 900;
 }
 
-#App {
-  margin: auto;
-  width: 90%;
-}
-
 #sequencer {
   width: 600px;
   height: 420px;
@@ -55,4 +50,5 @@ h2 {
   line-height: 4;
   font-family: 'Gothic A1', 'Helvetica', sans-serif;
   font-weight: 500;
+  user-select: none;
 }

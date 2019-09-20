@@ -1,20 +1,20 @@
 import React from 'react';
 import CellRow from './CellRow';
 import { isBlack } from '../../util/notes-util';
-import { setCompositionCell } from '../../redux/reducers/synth1UIReducer';
-import {connect} from 'react-redux';
+import { setCompositionCell } from '../../redux/reducers/synth1Reducer';
+import { notes } from '../../redux/config-creators/compositionReducerConfig';
+import { connect } from 'react-redux';
 import './piano-roll.css';
 
 const mapStateToProps = state => ({
-  notes: state.synth1UI.notes,
-  composition: state.synth1UI.composition,
+  composition: state.synth1.composition,
 });
 
 const mapDispatchToProps = {
   setCompositionCell
 }
 
-const PianoRoll = ({ setCompositionCell, activeColumn, notes}) => {
+const PianoRoll = ({ activeColumn }) => {
 
   return (
     <div className='piano-roll'>

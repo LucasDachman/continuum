@@ -1,7 +1,12 @@
 import Tone from 'tone';
 
 export default class CSynth {
-  constructor() {
+  name = null;
+  constructor(name) {
+    if (!name) {
+      throw new Error('CSynth constructor requires a name');
+    }
+    this.name = name;
     this.synth = new Tone.PolySynth(6, Tone.MonoSynth)
       .chain(
         new Tone.Limiter(),
