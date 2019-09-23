@@ -11,12 +11,12 @@ const Dial = ({ value, onChange, children }) => {
 
   return (
     <div className='knob'>
-      <CircularInput radius={28}
+      <CircularInput radius={18}
         value={value}
         onChange={onChange}>
-        <CircularTrack strokeWidth={14} />
-        <CircularProgress strokeWidth={14} />
-        <CircularThumb r='8' />
+        <CircularTrack strokeWidth={8} />
+        <CircularProgress strokeWidth={8} />
+        <CircularThumb r='6' />
       </CircularInput>
       {children}
     </div>

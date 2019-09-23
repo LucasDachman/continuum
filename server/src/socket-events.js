@@ -1,6 +1,6 @@
 
 // in-memory state, this needs to be put somewhere else
-let characters = [1, 2];
+let characters = ['synth1', 'synth2'];
 let users = {};
 
 export const setupSocketEvents = (socket, ioServer) => {
@@ -31,7 +31,7 @@ export const setupSocketEvents = (socket, ioServer) => {
     socket.emit('init', { character, numUsers });
   }
 
-  console.log(`User ${socket.id} (character ${character}) has joined the session.`)
+  console.log(`User ${socket.id} (${character}) has joined the session.`)
 
 
   // broadcast redux actions to all other users
@@ -40,7 +40,7 @@ export const setupSocketEvents = (socket, ioServer) => {
   });
 
   socket.on('disconnect', () => {
-    console.log(`User ${socket.id} (character: ${users[socket.id]}) has left the session.`)
+    console.log(`User ${socket.id} (${users[socket.id]}) has left the session.`)
     // add the character back
     characters.push(users[socket.id]);
     // remove the character from list of users

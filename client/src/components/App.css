@@ -10,6 +10,8 @@ h2 {
   font-weight: 900;
 }
 
+
+
 #sequencer {
   width: 600px;
   height: 420px;
@@ -24,15 +26,24 @@ h2 {
   text-align: center;
 }
 
-#frequency-offset {
-  margin: auto;
-  width: 150px;
-}
-
 #play-button {
   width: 60px;
   margin: auto;
   display: block;
+}
+
+#synth-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.synth {
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  width: 40%;
+  display: inline-block;
+  margin: 16px;
 }
 
 .knob-row {
@@ -46,9 +57,10 @@ h2 {
   flex-direction: column;
   align-content: center;
   text-align: center;
-  padding: 16px;
+  padding: 8px;
   line-height: 4;
   font-family: 'Gothic A1', 'Helvetica', sans-serif;
   font-weight: 500;
+  font-size: 12px;
   user-select: none;
 }

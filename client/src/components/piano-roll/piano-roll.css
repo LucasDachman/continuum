@@ -4,7 +4,7 @@
   --light-grey: #D5D5D5;
   --grey: #939393;
   --dark-grey: rgb(121, 121, 121);
-  --accent: #FF6AEE;
+  --pink: #FF6AEE;
   --light-blue: #26C6C6;
 }
 
@@ -57,10 +57,21 @@
   font-size: 10px;
 }
 
-.piano-cell.active {
+.cell-trigger-synth1 {
   background-color: var(--light-blue);
   border-radius: 5px;
   border-color: var(--light-blue);
+}
+
+.cell-trigger-synth2 {
+  background-color: var(--pink);
+  border-radius: 5px;
+  border-color: var(--pink);
+}
+
+.cell-trigger {
+  width: 100%;
+  height: 100%;
 }
 
 .piano-cell p::after {
