@@ -4,9 +4,8 @@ import App from './components/App';
 import { Provider } from 'react-redux';
 import CSynth from './audio/CSynth';
 import { subscribeCSynth, subscribeSequencer } from './redux/subscriptions'
-import makeStore from './redux/store';
 import { numSteps } from './redux/config-creators/compositionReducerConfig';
-import { configureSocket } from './socket/configureSocket';
+import { makeStoreWithSocket } from './socket/configureSocket';
 import Sequencer from './audio/Sequencer';
 
 
@@ -23,9 +22,7 @@ sequencer.sequences.synth2.frequencyOffset = 12;
 
   // setup web sockets to listen for and emit redux actions
   // need to wait for initial state before creating the store
-  const { actionEmitter, setupActionListener, initialState } = await configureSocket();
-  const store = makeStore([actionEmitter], initialState);
-  setupActionListener(store);
+  const store = await makeStoreWithSocket();
 
   subscribeCSynth(store, synth1);
   subscribeCSynth(store, synth2);
