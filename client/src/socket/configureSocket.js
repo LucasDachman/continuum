@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 import makeStore from '../redux/store';
-import {setCharacter} from '../redux/reducers/characterReducer';
+import { setCharacter } from '../redux/reducers/characterReducer';
 
 const blackList = [
   'setCharacter'
@@ -31,14 +31,15 @@ export const makeStoreWithSocket = async () => {
   const actionEmitter = makeActionEmitter(socket);
   const store = makeStore([actionEmitter], initialState)
 
-  store.dispatch(setCharacter({character}))
+  store.dispatch(setCharacter({ character }))
 
   socket.on('action', action => {
     store.dispatch(action);
   });
 
   socket.on('GET_STATE', (_, cb) => {
-    cb(store.getState());
+    const { character, ...rest } = store.getState();
+    cb(rest);
   });
 
   return store;
