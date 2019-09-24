@@ -1,28 +1,29 @@
-import React, { useCallback, memo, useRef, useEffect, useState } from 'react';
-import { connect, useSelector } from 'react-redux';
-import { setCompositionCell as setComp1 } from '../../redux/reducers/synth1Reducer';
-import { setCompositionCell as setComp2 } from '../../BassSynth/bassReducer';
+import React, { useCallback, memo, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleCompositionCell as toggle1 } from '../../redux/reducers/synth1Reducer';
+import { toggleCompositionCell as toggleBass } from '../../BassSynth/bassReducer';
 import { isBlack } from '../../util/notes-util';
 import _ from 'lodash'
 
-const mapDispatchToProps = {
-  setComp1,
-  setComp2
-}
+const toggleActions = {
+  synth1: toggle1,
+  bass: toggleBass
+};
 
-const Cell = ({ row, col, setComp1, setComp2 }) => {
+const Cell = ({ row, col }) => {
+  const dispatch = useDispatch();
 
   const currentCharacter = useSelector(state => state.character.character);
-  const setComp = currentCharacter === 'synth1' ? setComp1 : setComp2;
+
+  const handleClick = useCallback((e) => {
+    e.stopPropagation();
+    dispatch(toggleActions[currentCharacter]({row, col}));
+  }, [row, col, currentCharacter, dispatch]);
+
   const cells = {
     synth1: useSelector(state => state.synth1.composition[row][col]),
     bass: useSelector(state => state.bass.composition[row][col])
   };
-
-  const active = cells[currentCharacter].active;
-  const handleClick = useCallback(() => {
-    setComp({ row, col, active: !active })
-  }, [setComp, row, col, active]);
 
   const black = isBlack(cells[currentCharacter].note);
   const className = ['piano-cell',
@@ -47,7 +48,4 @@ const Cell = ({ row, col, setComp1, setComp2 }) => {
   );
 }
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(memo(Cell));
+export default memo(Cell);

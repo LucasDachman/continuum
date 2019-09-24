@@ -19,6 +19,10 @@ export const createCompositionSliceConfig = () => ({
     setCompositionCell(state, action) {
       const { row, col, active } = action.payload;
       state.composition[row][col].active = active;
+    },
+    toggleCompositionCell(state, action) {
+      const { row, col } = action.payload;
+      state.composition[row][col].active = !state.composition[row][col].active;
     }
   }
 });

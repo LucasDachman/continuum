@@ -37,10 +37,11 @@ const bassSlice = createSlice({
 
 export const {
   setCompositionCell,
+  toggleCompositionCell,
   setLength,
   setShape,
   setFilterDecay,
   setFilterRange,
-  setFilterQ
+  setFilterQ,
 } = bassSlice.actions;
 export default bassSlice.reducer;
