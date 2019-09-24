@@ -23,7 +23,7 @@ export default class Sequencer {
     for (const seq of Object.values(this.sequences)) {
       const nextChord = seq.getNotes(this.step)
       nextChord.length > 0 &&
-        seq.synth.synth.triggerAttackRelease(nextChord, '16n', time);
+        seq.synth.triggerAttackRelease(nextChord, '16n', time);
     }
     this.step++;
     if (this.step >= this.numSteps) this.step = 0;

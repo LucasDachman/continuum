@@ -46,7 +46,7 @@
 
 .piano-cell {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
@@ -63,7 +63,7 @@
   border-color: var(--light-blue);
 }
 
-.cell-trigger-synth2 {
+.cell-trigger-bass {
   background-color: var(--pink);
   border-radius: 5px;
   border-color: var(--pink);

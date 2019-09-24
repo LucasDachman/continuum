@@ -1,6 +1,6 @@
 import { configureStore, getDefaultMiddleware } from 'redux-starter-kit';
 import synth1Reducer from './reducers/synth1Reducer';
-import synth2Reducer from './reducers/synth2Reducer';
+import bassReducer from '../BassSynth/bassReducer';
 import utilReducer from './reducers/utilReducer';
 import characterReducer from './reducers/characterReducer';
 
@@ -8,7 +8,7 @@ const makeStore = (middleware = [], initialState) => {
   return configureStore({
     reducer: {
       synth1: synth1Reducer,
-      synth2: synth2Reducer,
+      bass: bassReducer,
       util: utilReducer,
       character: characterReducer,
     },

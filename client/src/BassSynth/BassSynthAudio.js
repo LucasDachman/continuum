@@ -1,6 +1,6 @@
 import Tone from 'tone';
 
-export default class CSynth {
+export default class BassSynthAudio {
   name = null;
   constructor(name) {
     if (!name) {
@@ -14,9 +14,19 @@ export default class CSynth {
       );
     this.synth.set({
       volume: -12,
+      detune: -1200,
       oscillator: {
         type: 'sawtooth'
       },
+      envelope: {
+        attack: 0.01,
+        sustain: 1,
+        decay: 0.05
+      },
+      filter: {
+        baseFrequency: 6,
+        sustain: 0.47415415352178325,
+      }
     });
   }
 
@@ -32,39 +42,18 @@ export default class CSynth {
     this.synth.triggerAttackRelease(notes, length, time);
   }
 
-  setAmpAttack = (ratio) => {
-    this.synth.set({
-      envelope: {
-        attack: ratio + 0.01
-      }
-    });
-  }
-
-  setAmpDecay = (ratio) => {
-    this.synth.set({
-      envelope: {
-        decay: ratio + 0.01
-      }
-    });
-  }
-
-  setAmpSustain = (ratio) => {
-    this.synth.set({
-      envelope: {
-        sustain: ratio
-      }
-    });
-  }
-
-  setAmpRelease = (ratio) => {
+  setLength = ratio => {
     this.synth.set({
       envelope: {
         release: (ratio * 10) + 0.01
+      },
+      filterEnvelope: {
+        release: (ratio * 100) + 0.01
       }
-    });
+    })
   }
 
-  setFilterAttack = (ratio) => {
+  setShape = ratio => {
     this.synth.set({
       filterEnvelope: {
         attack: (ratio / 5) + 0.01
@@ -76,30 +65,6 @@ export default class CSynth {
     this.synth.set({
       filterEnvelope: {
         decay: ratio + 0.01
-      }
-    });
-  }
-
-  setFilterSustain = (ratio) => {
-    this.synth.set({
-      filterEnvelope: {
-        sustain: ratio
-      }
-    });
-  }
-
-  setFilterRelease = (ratio) => {
-    this.synth.set({
-      filterEnvelope: {
-        release: (ratio * 100) + 0.01
-      }
-    });
-  }
-
-  setFilterBase = (ratio) => {
-    this.synth.set({
-      filterEnvelope: {
-        baseFrequency: (ratio * 500) + 1
       }
     });
   }

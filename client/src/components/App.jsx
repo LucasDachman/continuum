@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Synth1 from './Synth1/Synth1';
-import Synth2 from './Synth1/Synth2';
+import BassSynth from '../BassSynth/BassSynth.jsx';
 import PianoRoll from './piano-roll/PianoRoll.jsx';
 import Tone from 'tone';
 import startAudioContext from 'startaudiocontext';
@@ -49,7 +49,7 @@ const App = ({character}) => {
       </button>
       <div id='synth-section'>
         <Synth1 isPlaying={isPlaying} />
-        <Synth2 isPlaying={isPlaying} />
+        <BassSynth isPlaying={isPlaying} />
       </div>
       <PianoRoll currentStep={currentStep} />
     </main>

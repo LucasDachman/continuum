@@ -25,6 +25,15 @@ export function subscribeCSynth(store, synth) {
   subscribe(store, `${synthName}.filter.q`, synth.setFilterQ);
 }
 
+export function subscribeBassSynth(store, synth) {
+  const synthName = synth.name;
+  subscribe(store, `${synthName}.length`, synth.setLength)
+  subscribe(store, `${synthName}.shape`, synth.setShape);
+  subscribe(store, `${synthName}.filter.decay`, synth.setFilterDecay);
+  subscribe(store, `${synthName}.filter.range`, synth.setFilterRange);
+  subscribe(store, `${synthName}.filter.q`, synth.setFilterQ);
+}
+
 export function subscribeSequencer(store, sequencer) {
   // subscribe each sequence to it's corresponding composition in the redux store
   for (const [synthName, sequence] of Object.entries(sequencer.sequences)) {

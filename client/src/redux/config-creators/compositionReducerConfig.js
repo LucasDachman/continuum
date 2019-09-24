@@ -2,7 +2,7 @@
 import { generateNotes } from '../../util/notes-util';
 
 export const numNotes = 24;
-export const numSteps = 8;
+export const numSteps = 16;
 export const startNote = 36;
 export const notes = generateNotes(startNote, startNote + numNotes);
 
