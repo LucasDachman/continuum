@@ -4,8 +4,9 @@
   --light-grey: #D5D5D5;
   --grey: #939393;
   --dark-grey: rgb(121, 121, 121);
-  --pink: #FF6AEE;
-  --light-blue: #26C6C6;
+  --synth1Color: #26C6C6;
+  --bassColor: #FF6AEE;
+  --lennyColor: yellow;
 }
 
 .piano-roll {
@@ -26,7 +27,7 @@
 }
 
 .step-row {
-  height: 20px;
+  height: 26px;
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
@@ -58,15 +59,21 @@
 }
 
 .cell-trigger-synth1 {
-  background-color: var(--light-blue);
+  background-color: var(--synth1Color);
   border-radius: 5px;
-  border-color: var(--light-blue);
+  border-color: var(--synth1Color);
 }
 
 .cell-trigger-bass {
-  background-color: var(--pink);
+  background-color: var(--bassColor);
   border-radius: 5px;
-  border-color: var(--pink);
+  border-color: var(--bassColor);
+}
+
+.cell-trigger-lenny {
+  background-color: var(--lennyColor);
+  border-radius: 5px;
+  border-color: var(--lennyColor);
 }
 
 .cell-trigger {
@@ -87,7 +94,7 @@
 }
 
 .piano-key {
-  height: 20px;
+  height: 26px;
   width: 40px;
   padding: 0px;;
   margin: 0px;

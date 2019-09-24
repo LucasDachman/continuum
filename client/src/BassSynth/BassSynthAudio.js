@@ -7,7 +7,7 @@ export default class BassSynthAudio {
       throw new Error('CSynth constructor requires a name');
     }
     this.name = name;
-    this.synth = new Tone.PolySynth(6, Tone.MonoSynth)
+    this.synth = new Tone.PolySynth(1, Tone.MonoSynth)
       .chain(
         new Tone.Limiter(),
         Tone.Master
@@ -25,6 +25,8 @@ export default class BassSynthAudio {
       },
       filter: {
         baseFrequency: 6,
+      },
+      filterEnvelope: {
         sustain: 0.47415415352178325,
       }
     });

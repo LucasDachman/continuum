@@ -4,19 +4,27 @@ import App from './components/App';
 import { Provider } from 'react-redux';
 import CSynth from './audio/CSynth';
 import BassSynthAudio from './BassSynth/BassSynthAudio';
-import { subscribeCSynth, subscribeBassSynth, subscribeSequencer } from './redux/subscriptions'
+import { 
+  subscribeCSynth, 
+  subscribeBassSynth, 
+  subscribeSequencer,
+  subscribeLennySynth
+} from './redux/subscriptions'
 import { numSteps } from './redux/config-creators/compositionReducerConfig';
 import { makeStoreWithSocket } from './socket/configureSocket';
 import Sequencer from './audio/Sequencer';
+import LennySynthAudio from './LennySynth/LennySynthAudio';
 
 
 const tickTime = 170;
 const synth1 = new CSynth('synth1');
 const bass = new BassSynthAudio('bass');
+const lenny = new LennySynthAudio('lenny');
 export const sequencer = new Sequencer({ bpm: tickTime, numSteps })
 
 sequencer.createSequence(synth1);
 sequencer.createSequence(bass);
+sequencer.createSequence(lenny);
 
 (async () => {
 
@@ -26,6 +34,7 @@ sequencer.createSequence(bass);
 
   subscribeCSynth(store, synth1);
   subscribeBassSynth(store, bass);
+  subscribeLennySynth(store, lenny);
   subscribeSequencer(store, sequencer);
 
   ReactDOM.render((

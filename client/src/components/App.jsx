@@ -7,6 +7,7 @@ import startAudioContext from 'startaudiocontext';
 import './App.css';
 import { sequencer } from '../index';
 import {connect} from 'react-redux';
+import LennySynth from '../LennySynth/LennySynth';
 
 const mapStateToProps = state => ({
   character: state.character.character
@@ -48,8 +49,9 @@ const App = ({character}) => {
         {isPlaying ? 'Stop' : 'Play'}
       </button>
       <div id='synth-section'>
-        <Synth1 isPlaying={isPlaying} />
-        <BassSynth isPlaying={isPlaying} />
+        <Synth1 />
+        <BassSynth />
+        <LennySynth />
       </div>
       <PianoRoll currentStep={currentStep} />
     </main>

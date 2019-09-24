@@ -34,6 +34,11 @@ export function subscribeBassSynth(store, synth) {
   subscribe(store, `${synthName}.filter.q`, synth.setFilterQ);
 }
 
+export function subscribeLennySynth(store, synth) {
+  const synthName = synth.name;
+  subscribe(store, `${synthName}.reverb`, synth.setReverb);
+}
+
 export function subscribeSequencer(store, sequencer) {
   // subscribe each sequence to it's corresponding composition in the redux store
   for (const [synthName, sequence] of Object.entries(sequencer.sequences)) {

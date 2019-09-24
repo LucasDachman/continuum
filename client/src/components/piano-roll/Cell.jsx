@@ -1,13 +1,21 @@
 import React, { useCallback, memo, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleCompositionCell as toggle1 } from '../../redux/reducers/synth1Reducer';
-import { toggleCompositionCell as toggleBass } from '../../BassSynth/bassReducer';
+import {
+  toggleCompositionCell as toggle1
+} from '../../redux/reducers/synth1Reducer';
+import {
+  toggleCompositionCell as toggleBass
+} from '../../BassSynth/bassReducer';
+import {
+  toggleCompositionCell as toggleLenny
+} from '../../LennySynth/lennyReducer';
 import { isBlack } from '../../util/notes-util';
 import _ from 'lodash'
 
 const toggleActions = {
   synth1: toggle1,
-  bass: toggleBass
+  bass: toggleBass,
+  lenny: toggleLenny
 };
 
 const Cell = ({ row, col }) => {
@@ -17,12 +25,13 @@ const Cell = ({ row, col }) => {
 
   const handleClick = useCallback((e) => {
     e.stopPropagation();
-    dispatch(toggleActions[currentCharacter]({row, col}));
+    dispatch(toggleActions[currentCharacter]({ row, col }));
   }, [row, col, currentCharacter, dispatch]);
 
   const cells = {
     synth1: useSelector(state => state.synth1.composition[row][col]),
-    bass: useSelector(state => state.bass.composition[row][col])
+    bass: useSelector(state => state.bass.composition[row][col]),
+    lenny: useSelector(state => state.lenny.composition[row][col])
   };
 
   const black = isBlack(cells[currentCharacter].note);
