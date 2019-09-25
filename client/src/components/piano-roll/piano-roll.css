@@ -10,25 +10,33 @@
 }
 
 .piano-roll {
+  height: 100%;
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
-  width: 75%;
   margin: auto;
   user-select: none;
 }
 
 .piano-roll-editor {
-  height: 100%;
-  width: 100%;
+  min-height: 0px;
+  display: flex;
+  flex-flow: column-reverse nowrap;
+  justify-content: flex-end;
+  flex-grow: 1;
+}
+
+.piano-roll-keys {
+  min-height: 0px;
+  width: 35px;
   display: flex;
   flex-flow: column-reverse nowrap;
   justify-content: flex-end;
 }
 
 .step-row {
-  height: 26px;
-  width: 100%;
+  min-height: 0px;
+  height: 100%;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -53,9 +61,35 @@
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+  min-height: 0px;
   border-right: 1px solid var(--dark-grey);
   font-family: 'Roboto';
   font-size: 10px;
+}
+
+.piano-key {
+  min-height: 0px;
+  padding: 0px;;
+  margin: 0px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.piano-key p {
+  font-size: 10px;
+}
+
+.piano-key.black {
+  background-color: var(--black);
+  color: var(--light-grey);
+}
+
+.piano-key.white {
+  background-color: var(--light-grey);
+  color: var(--black);
 }
 
 .cell-trigger-synth1 {
@@ -79,44 +113,4 @@
 .cell-trigger {
   width: 100%;
   height: 100%;
-}
-
-.piano-cell p::after {
-  content: '%';
-}
-
-/* KEYS */
-
-.piano-roll-keys {
-  display: flex;
-  flex-flow: column-reverse nowrap;
-  justify-content: flex-end;
-}
-
-.piano-key {
-  height: 26px;
-  width: 40px;
-  padding: 0px;;
-  margin: 0px;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-}
-
-.piano-key.black {
-  background-color: var(--black);
-  color: var(--light-grey);
-}
-
-.piano-key.white {
-  background-color: var(--light-grey);
-  color: var(--black);
-}
-.piano-key p {
-  font-family: 'Roboto';
-  font-size: 10px;
-  padding: 0;
-  margin: 0;
 }
