@@ -42,9 +42,9 @@ const BassSynth = ({
 
   // actual render code
   return (
-    <div className='synth-1 synth'>
-      <h1 style={{ textAlign: 'center' }}>Bass Synth</h1>
-      <div className='knob-row'>
+    <div className='bass-synth synth'>
+      <h2>Bass Synth</h2>
+      <div className='knob-row knob-row-horizontal'>
         <Dial
           value={length}
           onChange={setLength} >

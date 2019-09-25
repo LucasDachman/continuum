@@ -42,7 +42,7 @@ const App = ({ character }) => {
 
   return !audioContextStarted ? 'Click' : (
     <main>
-      {/* <section id='control-panel'>
+      <section id='control-panel'>
         <p>You are: {character}</p>
         <button id='play-button'
           onClick={handlePlay}
@@ -52,7 +52,7 @@ const App = ({ character }) => {
       </section>
       <Synth1 />
       <BassSynth />
-      <LennySynth /> */}
+      <LennySynth />
       <section id='sequencer'>
         <PianoRoll currentStep={currentStep} />
       </section>

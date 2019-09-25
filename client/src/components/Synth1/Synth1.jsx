@@ -21,11 +21,12 @@ const Synth1 = ({ setAmp, setFilter, amp, filter }) => {
 
   // actual render code
   return (
+    <>
+    <h2>Synth 1</h2>
     <div className='synth-1 synth'>
-      <h1>Synth 1</h1>
       <section id='amp-env'>
-        <h2>Amp Env</h2>
-        <div className='knob-row'>
+        <div className='knob-row knob-row-vertical'>
+          <h4>Amp</h4>
           <Dial
             value={amp.attack}
             onChange={useSetCallback(setAmp, 'attack')} >
@@ -49,8 +50,8 @@ const Synth1 = ({ setAmp, setFilter, amp, filter }) => {
         </div>
       </section>
       <section id='filter-env'>
-        <h2>Filter</h2>
-        <div className='knob-row'>
+        <div className='knob-row knob-row-vertical'>
+          <h4>Filter</h4>
           <Dial
             value={filter.attack}
             onChange={useSetCallback(setFilter, 'attack')} >
@@ -72,7 +73,7 @@ const Synth1 = ({ setAmp, setFilter, amp, filter }) => {
             Release
           </Dial>
         </div>
-        <div className='knob-row'>
+        <div className='knob-row knob-row-vertical'>
           <Dial
             value={filter.base}
             onChange={useSetCallback(setFilter, 'base')} >
@@ -91,6 +92,7 @@ const Synth1 = ({ setAmp, setFilter, amp, filter }) => {
         </div>
       </section>
     </div>
+    </>
   );
 }
 

@@ -19,8 +19,8 @@ const LennySynth = ({
 }) => {
   return (
     <div className='lenny-synth synth'>
-      <h1 style={{ textAlign: 'center' }}>Lenny</h1>
-      <div className='knob-row'>
+      <h2>Lenny</h2>
+      <div className='knob-row knob-row-horizontal'>
         <Dial
           value={reverb}
           onChange={setReverb} >
