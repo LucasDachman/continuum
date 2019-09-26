@@ -6,26 +6,38 @@ import { notes } from '../../redux/config-creators/compositionReducerConfig';
 import { connect } from 'react-redux';
 import './piano-roll.css';
 
+function importAll(r) {
+  return r.keys().map(k => r(k));
+}
+
+const audioFiles = importAll(require.context('../../audio-files/', true, /\.wav$/));
+const fileNames = audioFiles.reduce((acc, curr, i) => {
+  acc[notes[i].name] = curr.match(/(?<=slices_)[0-9]+(?=\.)/);
+  return acc;
+}, {});
+
 const mapStateToProps = state => ({
   composition: state.synth1.composition,
+  character: state.character.character
 });
 
 const mapDispatchToProps = {
   setCompositionCell
 }
 
-const PianoRoll = ({ activeColumn, composition }) => {
+const PianoRoll = ({ activeColumn, composition, character }) => {
 
   return (
     <div className='piano-roll'>
       <section className='piano-roll-keys'>
         {notes.map((n) => {
           const className = ['piano-key', isBlack(n) ? 'black' : 'white'].join(' ');
+          const name = character === 'drummer' && fileNames[n.name] ? fileNames[n.name] : n.name;
           return (
             <div
               className={className}
-              key={n.name}>
-              <p>{n.name}</p>
+              key={name}>
+              <p>{name}</p>
             </div>
           );
         })}

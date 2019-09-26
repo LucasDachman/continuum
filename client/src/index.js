@@ -14,17 +14,20 @@ import { numSteps } from './redux/config-creators/compositionReducerConfig';
 import { makeStoreWithSocket } from './socket/configureSocket';
 import Sequencer from './audio/Sequencer';
 import LennySynthAudio from './LennySynth/LennySynthAudio';
+import DrummerAudio from './Drummer/DrummerAudio';
 
 
 const tickTime = 170;
 const synth1 = new CSynth('synth1');
 const bass = new BassSynthAudio('bass');
 const lenny = new LennySynthAudio('lenny');
+const drummer = new DrummerAudio('drummer');
 export const sequencer = new Sequencer({ bpm: tickTime, numSteps })
 
 sequencer.createSequence(synth1);
 sequencer.createSequence(bass);
 sequencer.createSequence(lenny);
+sequencer.createSequence(drummer);
 
 (async () => {
 

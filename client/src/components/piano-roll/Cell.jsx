@@ -1,4 +1,4 @@
-import React, { useCallback, memo, useRef } from 'react';
+import React, { useCallback, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   toggleCompositionCell as toggle1
@@ -9,13 +9,17 @@ import {
 import {
   toggleCompositionCell as toggleLenny
 } from '../../LennySynth/lennyReducer';
+import {
+  toggleCompositionCell as toggleDrummer
+} from '../../Drummer/drummerReducer';
 import { isBlack } from '../../util/notes-util';
 import _ from 'lodash'
 
 const toggleActions = {
   synth1: toggle1,
   bass: toggleBass,
-  lenny: toggleLenny
+  lenny: toggleLenny,
+  drummer: toggleDrummer
 };
 
 const Cell = ({ row, col }) => {
@@ -31,7 +35,8 @@ const Cell = ({ row, col }) => {
   const cells = {
     synth1: useSelector(state => state.synth1.composition[row][col]),
     bass: useSelector(state => state.bass.composition[row][col]),
-    lenny: useSelector(state => state.lenny.composition[row][col])
+    lenny: useSelector(state => state.lenny.composition[row][col]),
+    drummer: useSelector(state => state.drummer.composition[row][col])
   };
 
   const black = isBlack(cells[currentCharacter].note);

@@ -7,6 +7,7 @@
   --synth1Color: #26C6C6;
   --bassColor: #FF6AEE;
   --lennyColor: yellow;
+  --drummerColor: green;
 }
 
 .piano-roll {
@@ -108,6 +109,12 @@
   background-color: var(--lennyColor);
   border-radius: 5px;
   border-color: var(--lennyColor);
+}
+
+.cell-trigger-drummer {
+  background-color: var(--drummerColor);
+  border-radius: 5px;
+  border-color: var(--drummerColor);
 }
 
 .cell-trigger {
