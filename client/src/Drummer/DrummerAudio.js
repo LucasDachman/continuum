@@ -1,10 +1,6 @@
 import Tone from 'tone';
 import { notes } from '../redux/config-creators/compositionReducerConfig';
 
-function importAll(r) {
-  return r.keys().map(k => r(k));
-}
-
 const kicksContext = require.context('../audio-files/kicks/', true, /01\.wav$/);
 const snaresContext = require.context('../audio-files/snares', true, /01\.wav$/);
 const rimsContext = require.context('../audio-files/rims', true, /01\.wav$/);
@@ -13,7 +9,7 @@ const clapsContext = require.context('../audio-files/claps', true, /01\.wav$/);
 const shortCymbalsContext = require.context('../audio-files/short_cymbals', true, /01\.wav$/);
 const longCymbalsContext = require.context('../audio-files/long_cymbals', true, /01\.wav$/);
 
-const files = {
+let files = {
   kicks: kicksContext,
   snares: snaresContext,
   rims: rimsContext,
@@ -23,21 +19,27 @@ const files = {
   longCymbals: longCymbalsContext
 };
 
-for (let [key, context] of Object.entries(files)) {
-  files[key] = importAll(context);
-}
-console.log(files)
 
-export const audioFiles = [];
+for (let [key, context] of Object.entries(files)) {
+  files[key] = context.keys().map(k => {
+    const file = context(k)
+    const name = file.match(/\w*_\d\d(?=\.)/)[0] || 'default';
+    return { file, name };
+  });
+}
+
+export { files as audioFiles }
 
 export default class DrummerAudio {
   constructor(name) {
     this.name = name;
-    this.urls = audioFiles.reduce((acc, curr, i) => {
-      // acc[notes[i].frequency] = curr;
-      return acc;
-    }, {})
+    let count = 0;
+    this.urls = Object.values(files).reduce((acc, folder) => {
+      acc[notes[count++].frequency] = folder[0].file
+      return acc
+    }, {});
     this.synth = new Tone.Players(this.urls).toMaster();
+    console.log(this.urls)
   }
 
   triggerAttackRelease = (notes, length, time) => {

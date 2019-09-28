@@ -4,36 +4,28 @@ import { isBlack } from '../../util/notes-util';
 import { setCompositionCell } from '../../redux/reducers/synth1Reducer';
 import { notes } from '../../redux/config-creators/compositionReducerConfig';
 import { connect } from 'react-redux';
-import { audioFiles } from '../../Drummer/DrummerAudio';
 import './piano-roll.css';
-
-const fileNames = audioFiles.reduce((acc, curr, i) => {
-  acc[notes[i].name] = curr.match(/(?<=slices_)[0-9]+(?=\.)/);
-  return acc;
-}, {});
 
 const mapStateToProps = state => ({
   composition: state.synth1.composition,
-  character: state.character.character
 });
 
 const mapDispatchToProps = {
   setCompositionCell
 }
 
-const PianoRoll = ({ activeColumn, composition, character }) => {
+const PianoRoll = ({ activeColumn, composition }) => {
 
   return (
     <div className='piano-roll'>
       <section className='piano-roll-keys'>
         {notes.map((n) => {
           const className = ['piano-key', isBlack(n) ? 'black' : 'white'].join(' ');
-          const name = character === 'drummer' && fileNames[n.name] ? fileNames[n.name] : n.name;
           return (
             <div
               className={className}
-              key={name}>
-              <p>{name}</p>
+              key={n.name}>
+              <p>{n.name}</p>
             </div>
           );
         })}
