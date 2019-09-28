@@ -4,13 +4,9 @@ import { isBlack } from '../../util/notes-util';
 import { setCompositionCell } from '../../redux/reducers/synth1Reducer';
 import { notes } from '../../redux/config-creators/compositionReducerConfig';
 import { connect } from 'react-redux';
+import { audioFiles } from '../../Drummer/DrummerAudio';
 import './piano-roll.css';
 
-function importAll(r) {
-  return r.keys().map(k => r(k));
-}
-
-const audioFiles = importAll(require.context('../../audio-files/', true, /\.wav$/));
 const fileNames = audioFiles.reduce((acc, curr, i) => {
   acc[notes[i].name] = curr.match(/(?<=slices_)[0-9]+(?=\.)/);
   return acc;

@@ -1,6 +1,6 @@
 
 // in-memory state, this needs to be put somewhere else
-let characters = ['bass', 'lenny', 'drummer'];
+let characters = ['drummer'];
 let users = {};
 
 export const setupSocketEvents = (socket, ioServer) => {

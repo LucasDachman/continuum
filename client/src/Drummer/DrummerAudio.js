@@ -5,15 +5,36 @@ function importAll(r) {
   return r.keys().map(k => r(k));
 }
 
-const audioFiles = importAll(require.context('../audio-files/', true, /\.wav$/));
+const kicksContext = require.context('../audio-files/kicks/', true, /01\.wav$/);
+const snaresContext = require.context('../audio-files/snares', true, /01\.wav$/);
+const rimsContext = require.context('../audio-files/rims', true, /01\.wav$/);
+const shakerSnapsContext = require.context('../audio-files/shaker_snaps', true, /01\.wav$/);
+const clapsContext = require.context('../audio-files/claps', true, /01\.wav$/);
+const shortCymbalsContext = require.context('../audio-files/short_cymbals', true, /01\.wav$/);
+const longCymbalsContext = require.context('../audio-files/long_cymbals', true, /01\.wav$/);
+
+const files = {
+  kicks: kicksContext,
+  snares: snaresContext,
+  rims: rimsContext,
+  shakersSnaps: shakerSnapsContext,
+  claps: clapsContext,
+  shortCymbals: shortCymbalsContext,
+  longCymbals: longCymbalsContext
+};
+
+for (let [key, context] of Object.entries(files)) {
+  files[key] = importAll(context);
+}
+console.log(files)
+
+export const audioFiles = [];
 
 export default class DrummerAudio {
   constructor(name) {
     this.name = name;
     this.urls = audioFiles.reduce((acc, curr, i) => {
-      // curr.match(/slices_[0-9]+(?=\.)/)
-      // set note name as key to file path
-      acc[notes[i].frequency] = curr;
+      // acc[notes[i].frequency] = curr;
       return acc;
     }, {})
     this.synth = new Tone.Players(this.urls).toMaster();
