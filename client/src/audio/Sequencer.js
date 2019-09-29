@@ -12,8 +12,9 @@ export default class Sequencer {
   constructor({ bpm, numSteps }) {
     this.numSteps = numSteps;
     Tone.Transport.bpm.value = bpm;
-    Tone.Transport.start();
+    Tone.Transport.start('+0.1');
     this.loop = new Tone.Loop(this._loopCallback, '16n');
+    this.loop.humanize = true;
   }
 
   _loopCallback = (time) => {
@@ -33,7 +34,7 @@ export default class Sequencer {
     if (!this.onTick) return;
     Tone.Draw.schedule(() => {
       this.onTick(step);
-    }, time + 0.1)
+    }, time)
   }
 
   createSequence = (synth) => {

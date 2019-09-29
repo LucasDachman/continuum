@@ -35,14 +35,19 @@ export default class DrummerAudio {
     this.name = name;
     let count = 0;
     this.urls = Object.values(files).reduce((acc, folder) => {
-      acc[notes[count++].frequency] = folder[0].file
+      acc[notes[count++].name] = folder[0].file
       return acc
     }, {});
-    this.synth = new Tone.Players(this.urls).toMaster();
+    this.synth = new Tone.Sampler(this.urls)
+    .chain(
+      new Tone.Volume(-10),
+      Tone.Master
+    );
     console.log(this.urls)
   }
 
   triggerAttackRelease = (notes, length, time) => {
+    this.synth.triggerAttackRelease(notes, length, time);
     notes.forEach(note => {
       if (!this.urls[note]) return;
       this.synth.get(note).restart(time);

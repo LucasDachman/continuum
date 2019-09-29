@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Cell from './Cell';
 import { isBlack } from '../../util/notes-util';
 import { setCompositionCell } from '../../redux/reducers/synth1Reducer';
@@ -14,7 +14,7 @@ const mapDispatchToProps = {
   setCompositionCell
 }
 
-const PianoRoll = ({ activeColumn, composition }) => {
+const PianoRoll = ({ currentStep, composition }) => {
 
   return (
     <div className='piano-roll'>
@@ -33,17 +33,30 @@ const PianoRoll = ({ activeColumn, composition }) => {
       <section className='piano-roll-editor'>
         {
           notes.map((n, rowI) =>
-            <section key={rowI} className={`step-row ${isBlack(n) ? 'black' : 'white'}`}>
-              {
-                composition[rowI].map((cell, colIndex) =>
-                  <Cell
-                    key={`${rowI}, ${colIndex}`}
-                    row={rowI}
-                    col={colIndex}
-                  />
-                )
-              }
-            </section>
+            <React.Fragment key={rowI} >
+
+              <section className={`step-row ${isBlack(n) ? 'black' : 'white'}`}>
+                {
+                  composition[rowI].map((cell, colIndex) =>
+                    <Fragment key={`${rowI}, ${colIndex}`}>
+                      {
+                        currentStep === colIndex &&
+                        <div style={{
+                          height: '100%',
+                          width: '0px',
+                        }}>
+                          <div style={{height: '100%', width: '1px', zIndex: 2, backgroundColor: '#E6E6E6'}} />
+                        </div>
+                      }
+                      <Cell
+                        row={rowI}
+                        col={colIndex}
+                      />
+                    </Fragment>
+                  )
+                }
+              </section>
+            </React.Fragment>
           )
         }
       </section>
