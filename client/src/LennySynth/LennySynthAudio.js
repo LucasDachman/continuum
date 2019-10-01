@@ -10,6 +10,7 @@ export default class LennySynthAudio {
     this.name = name;
 
     this.reverb = new Tone.Freeverb();
+    this.vibrato = new Tone.Vibrato();
     this.phaser = new Tone.Phaser({
       frequency: 0.4,
       octaves: 2,
@@ -20,6 +21,7 @@ export default class LennySynthAudio {
     this.phaser.wet.value = 1;
     this.synth = new Tone.PolySynth(6, Tone.MonoSynth)
       .chain(
+        this.vibrato,
         this.reverb,
         this.phaser,
         new Tone.Limiter(),
@@ -69,5 +71,9 @@ export default class LennySynthAudio {
     } else {
       this.phaser.wet.value = 0
     }
+  }
+
+  setVibratoDepth = ratio => {
+    this.vibrato.depth.value = ratio;
   }
 }
