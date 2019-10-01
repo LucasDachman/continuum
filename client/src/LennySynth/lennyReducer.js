@@ -7,12 +7,16 @@ const lennySlice = createSlice({
   slice: 'lenny',
   initialState: {
     reverb: 0,
+    length: 0.25,
     composition: compositionReducerConfig.initialState
   },
   reducers: {
     ...compositionReducerConfig.reducers,
     setReverb(state, action) {
       state.reverb = action.payload;
+    },
+    setLength(state, action) {
+      state.length = action.payload;
     }
   }
 });
@@ -20,7 +24,8 @@ const lennySlice = createSlice({
 export const {
   setCompositionCell,
   toggleCompositionCell,
-  setReverb
+  setReverb,
+  setLength
 } = lennySlice.actions
 export default lennySlice.reducer;
 

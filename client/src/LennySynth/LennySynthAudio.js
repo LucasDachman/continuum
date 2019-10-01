@@ -1,4 +1,5 @@
 import Tone from 'tone';
+import { throwStatement } from '@babel/types';
 
 export default class LennySynthAudio {
   name = null;
@@ -42,6 +43,17 @@ export default class LennySynthAudio {
     // this.reverb.decay = ratio * 8;
     // this.reverb.wet.value = mapRange(ratio, 0, 1, 0.0, 0.9);
     this.reverb.wet.value = ratio;
+  }
+
+  setLength = ratio => {
+    this.synth.set({
+      envelope: {
+        release: (ratio * 8) + 0.01
+      },
+      filterEnvelope: {
+        release: (ratio * 80) + 0.01
+      }
+    });
   }
 
 }
