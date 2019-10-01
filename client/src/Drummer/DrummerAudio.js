@@ -19,7 +19,7 @@ let files = {
   longCymbals: longCymbalsContext
 };
 
-
+// resolve file paths
 for (let [key, context] of Object.entries(files)) {
   files[key] = context.keys().map(k => {
     const file = context(k)

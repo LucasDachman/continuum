@@ -1,20 +1,11 @@
 import React, { Fragment } from 'react';
 import Cell from './Cell';
 import { isBlack } from '../../util/notes-util';
-import { setCompositionCell } from '../../redux/reducers/synth1Reducer';
-import { notes } from '../../redux/config-creators/compositionReducerConfig';
-import { connect } from 'react-redux';
+import { notes, numSteps } from '../../redux/config-creators/compositionReducerConfig';
+import { range } from 'lodash';
 import './piano-roll.css';
 
-const mapStateToProps = state => ({
-  composition: state.synth1.composition,
-});
-
-const mapDispatchToProps = {
-  setCompositionCell
-}
-
-const PianoRoll = ({ currentStep, composition }) => {
+const PianoRoll = ({ currentStep }) => {
 
   return (
     <div className='piano-roll'>
@@ -32,25 +23,16 @@ const PianoRoll = ({ currentStep, composition }) => {
       </section>
       <section className='piano-roll-editor'>
         {
-          notes.map((n, rowI) =>
-            <React.Fragment key={rowI} >
-
+          notes.map((n, rowNum) =>
+            <React.Fragment key={rowNum} >
               <section className={`step-row ${isBlack(n) ? 'black' : 'white'}`}>
                 {
-                  composition[rowI].map((cell, colIndex) =>
-                    <Fragment key={`${rowI}, ${colIndex}`}>
-                      {
-                        currentStep === colIndex &&
-                        <div style={{
-                          height: '100%',
-                          width: '0px',
-                        }}>
-                          <div style={{height: '100%', width: '1px', zIndex: 2, backgroundColor: '#E6E6E6'}} />
-                        </div>
-                      }
+                  range(numSteps).map(colNum =>
+                    <Fragment key={`${rowNum}, ${colNum}`}>
+                      {currentStep === colNum && <VDivider />}
                       <Cell
-                        row={rowI}
-                        col={colIndex}
+                        row={rowNum}
+                        col={colNum}
                       />
                     </Fragment>
                   )
@@ -64,7 +46,13 @@ const PianoRoll = ({ currentStep, composition }) => {
   );
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(PianoRoll);
+const VDivider = () => (
+  <div style={{
+    height: '100%',
+    width: '0px',
+  }}>
+    <div style={{ height: '100%', width: '1px', zIndex: 2, backgroundColor: '#E6E6E6' }} />
+  </div>
+);
+
+export default PianoRoll;
