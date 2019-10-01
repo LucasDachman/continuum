@@ -38,6 +38,7 @@ export function subscribeLennySynth(store, synth) {
   const synthName = synth.name;
   subscribe(store, `${synthName}.reverb`, synth.setReverb);
   subscribe(store, `${synthName}.length`, synth.setLength);
+  subscribe(store, `${synthName}.phaser`, synth.setPhaser);
 }
 
 export function subscribeSequencer(store, sequencer) {
