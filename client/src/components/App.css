@@ -77,6 +77,12 @@ main {
   justify-content: space-around;
 }
 
+.drummer-synth {
+  grid-area: right;
+  display: flex;
+  flex-direction: column;
+}
+
 .knob {
   display: flex;
   flex-direction: column;

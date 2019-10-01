@@ -42,6 +42,11 @@ export function subscribeLennySynth(store, synth) {
   subscribe(store, `${synthName}.vibratoDepth`, synth.setVibratoDepth);
 }
 
+export function subscribeDrummer(store, synth) {
+  const synthName = synth.name;
+  subscribe(store, `${synthName}.filterFreq`, synth.setFilterFreq);
+}
+
 export function subscribeSequencer(store, sequencer) {
   // subscribe each sequence to it's corresponding composition in the redux store
   for (const [synthName, sequence] of Object.entries(sequencer.sequences)) {

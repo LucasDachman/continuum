@@ -8,6 +8,7 @@ import './App.css';
 import { sequencer } from '../index';
 import { connect } from 'react-redux';
 import LennySynth from '../LennySynth/LennySynth';
+import Drummer from '../Drummer/Drummer';
 
 const mapStateToProps = state => ({
   character: state.character.character
@@ -53,6 +54,7 @@ const App = ({ character }) => {
       <Synth1 />
       <BassSynth />
       <LennySynth />
+      <Drummer />
       <section id='sequencer'>
         <PianoRoll currentStep={currentStep} />
       </section>

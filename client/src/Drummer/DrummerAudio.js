@@ -1,5 +1,6 @@
 import Tone from 'tone';
 import { notes } from '../redux/config-creators/compositionReducerConfig';
+import {mapRatioToRange} from '../util/util'
 
 const kicksContext = require.context('../audio-files/kicks/', true, /01\.wav$/);
 const snaresContext = require.context('../audio-files/snares', true, /01\.wav$/);
@@ -33,14 +34,22 @@ export { files as audioFiles }
 export default class DrummerAudio {
   constructor(name) {
     this.name = name;
+    // set up audio files
     let count = 0;
     this.urls = Object.values(files).reduce((acc, folder) => {
       acc[notes[count++].name] = folder[0].file
       return acc
     }, {});
+
+    // setup effects
+    this.filter = new Tone.Filter();
+
+    // create sampler
     this.synth = new Tone.Sampler(this.urls)
     .chain(
-      new Tone.Volume(-10),
+      this.filter,
+      new Tone.Volume(-8),
+      new Tone.Limiter(),
       Tone.Master
     );
     console.log(this.urls)
@@ -53,5 +62,10 @@ export default class DrummerAudio {
       this.synth.get(note).restart(time);
       this.synth.get(note).start(time);
     });
+  }
+
+  setFilterFreq = ratio => {
+    // this.filter
+    this.filter.frequency.value = mapRatioToRange(Math.pow(ratio, 2), 0, 10000);
   }
 }

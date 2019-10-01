@@ -8,7 +8,8 @@ import {
   subscribeCSynth, 
   subscribeBassSynth, 
   subscribeSequencer,
-  subscribeLennySynth
+  subscribeLennySynth,
+  subscribeDrummer
 } from './redux/subscriptions'
 import { numSteps } from './redux/config-creators/compositionReducerConfig';
 import { makeStoreWithSocket } from './socket/configureSocket';
@@ -39,6 +40,7 @@ sequencer.createSequence(drummer);
   subscribeBassSynth(store, bass);
   subscribeLennySynth(store, lenny);
   subscribeSequencer(store, sequencer);
+  subscribeDrummer(store, drummer);
 
   ReactDOM.render((
     <Provider store={store}>
