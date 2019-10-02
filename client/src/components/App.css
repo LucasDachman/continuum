@@ -57,9 +57,10 @@ main {
 }
 
 .bass-synth {
-  grid-area: bottom;
+  grid-area: top;
   display: flex;
   justify-content: space-around;
+  align-items: baseline;
 }
 
 .bass-synth h2 {
@@ -74,15 +75,18 @@ main {
 }
 
 .lenny-synth {
-  grid-area: top;
-  display: flex;
-  justify-content: space-around;
-}
-
-.drummer-synth {
   grid-area: right;
   display: flex;
   flex-direction: column;
+  align-items: center
+}
+
+.drummer-synth {
+  grid-area: bottom;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-around;
 }
 
 .knob {

@@ -35,7 +35,7 @@ const LennySynth = ({
   return (
     <div className='lenny-synth synth'>
       <h2>Lenny</h2>
-      <div className='knob-row knob-row-horizontal'>
+      <div className='knob-row knob-row-vertical'>
         <Dial
           value={length}
           onChange={setLength} >

@@ -18,7 +18,7 @@ const Drummer = ({
   return (
     <div className='drummer-synth synth'>
       <h2>Drummer</h2>
-      <div className='knob-row knob-row-vertical'>
+      <div className='knob-row knob-row-horizontal'>
         <Dial
           value={filterFreq}
           onChange={setFilterFreq}>
