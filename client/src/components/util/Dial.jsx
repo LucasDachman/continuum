@@ -1,4 +1,5 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
+import { throttle } from 'lodash';
 
 import {
   CircularInput,
@@ -9,12 +10,16 @@ import {
 
 const Dial = ({ value, onChange, children }) => {
 
+  const handleChange = useCallback(throttle(v => {
+    onChange(v)
+  }, 100), [onChange])
+
   return (
     <div className='knob'>
       <div>
         <CircularInput radius={18}
           value={value}
-          onChange={onChange}>
+          onChange={handleChange}>
           <CircularTrack strokeWidth={8} />
           <CircularProgress strokeWidth={8} />
           <CircularThumb r='6' />
