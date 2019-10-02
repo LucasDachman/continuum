@@ -37,4 +37,14 @@ export const midiToNote = noteNumber => {
   }
 }
 
+export const nameToNote = name => {
+  const freq = Tone.Frequency(name, 'note');
+  return {
+    name,
+    frequency: freq.toFrequency(),
+    color: name.includes('#') ? 'black' : 'white',
+    midi: freq.toMidi()
+  }
+}
+
 export const octaveNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];

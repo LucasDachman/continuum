@@ -14,7 +14,7 @@ export default class BassSynthAudio {
       );
     this.synth.set({
       volume: -12,
-      detune: -1200,
+      detune: -3200,
       oscillator: {
         type: 'sawtooth'
       },

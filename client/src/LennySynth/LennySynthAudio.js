@@ -29,7 +29,7 @@ export default class LennySynthAudio {
       );
     this.synth.set({
       volume: -12,
-      detune: 1200,
+      detune: -1200,
       oscillator: {
         type: 'triangle'
       },

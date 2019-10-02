@@ -18,7 +18,7 @@ import LennySynthAudio from './LennySynth/LennySynthAudio';
 import DrummerAudio from './Drummer/DrummerAudio';
 
 
-const tickTime = 170;
+const tickTime = 85;
 const synth1 = new CSynth('synth1');
 const bass = new BassSynthAudio('bass');
 const lenny = new LennySynthAudio('lenny');
