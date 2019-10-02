@@ -1,5 +1,5 @@
 
-import { generateNotes } from '../../util/notes-util';
+import { generateNotes, midiToNote } from '../../util/notes-util';
 
 export const numNotes = 24;
 export const numSteps = 16;
@@ -23,6 +23,11 @@ export const createCompositionSliceConfig = () => ({
     toggleCompositionCell(state, action) {
       const { row, col } = action.payload;
       state.composition[row][col].active = !state.composition[row][col].active;
+    },
+    transpose(state, action) {
+      const { semitones } = action.payload;
+      state.composition = state.composition
+          .map(row => row.map(cell => midiToNote(cell.midi + semitones)));
     }
   }
 });

@@ -36,6 +36,8 @@ main {
 #control-panel {
   grid-area: head;
   display: flex;
+  justify-content: center;
+  align-items: baseline;
 }
 
 #sequencer {
@@ -46,7 +48,7 @@ main {
 
 #play-button {
   width: 60px;
-  margin: auto;
+  margin: 20px;
   display: block;
 }
 
