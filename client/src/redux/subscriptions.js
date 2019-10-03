@@ -47,6 +47,12 @@ export function subscribeDrummer(store, synth) {
   subscribe(store, `${synthName}.filterFreq`, synth.setFilterFreq);
 }
 
+
+/**
+ * TODO: Remove frequency information from composition and get 
+ * frequencies from key number so that notes/scales can be changed
+ */
+
 export function subscribeSequencer(store, sequencer) {
   // subscribe each sequence to it's corresponding composition in the redux store
   for (const [synthName, sequence] of Object.entries(sequencer.sequences)) {
@@ -56,10 +62,11 @@ export function subscribeSequencer(store, sequencer) {
       for (const [coli, cell] of row.entries()) {
         const path = String.raw`${synthName}.composition.${rowi}.${coli}.active`;
         subscribe(store, path, active => {
+          const freq = synthName === 'drummer' ? String(cell.keyIndex) : cell.note.frequency;
           if (active) {
-            sequence.addNote({ index: coli, freq: cell.note.frequency });
+            sequence.addNote({ index: coli, freq });
           } else {
-            sequence.removeNote({ index: coli, freq: cell.note.frequency });
+            sequence.removeNote({ index: coli, freq });
           }
         });
       }

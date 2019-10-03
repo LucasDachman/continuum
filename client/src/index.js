@@ -18,29 +18,31 @@ import LennySynthAudio from './LennySynth/LennySynthAudio';
 import DrummerAudio from './Drummer/DrummerAudio';
 
 
-const tickTime = 85;
-const synth1 = new CSynth('synth1');
-const bass = new BassSynthAudio('bass');
-const lenny = new LennySynthAudio('lenny');
-const drummer = new DrummerAudio('drummer');
-export const sequencer = new Sequencer({ bpm: tickTime, numSteps })
-
-sequencer.createSequence(synth1);
-sequencer.createSequence(bass);
-sequencer.createSequence(lenny);
-sequencer.createSequence(drummer);
+export const sequencer = new Sequencer({ bpm: 85, numSteps });
 
 (async () => {
+
 
   // setup web sockets to listen for and emit redux actions
   // need to wait for initial state before creating the store
   const store = await makeStoreWithSocket();
 
+  const synth1 = new CSynth('synth1');
+  const bass = new BassSynthAudio('bass');
+  const lenny = new LennySynthAudio('lenny');
+  const drummer = new DrummerAudio('drummer', store.getState().drummer.files);
+
+  sequencer.createSequence(synth1);
+  sequencer.createSequence(bass);
+  sequencer.createSequence(lenny);
+  sequencer.createSequence(drummer);
+
   subscribeCSynth(store, synth1);
   subscribeBassSynth(store, bass);
   subscribeLennySynth(store, lenny);
-  subscribeSequencer(store, sequencer);
   subscribeDrummer(store, drummer);
+
+  subscribeSequencer(store, sequencer);
 
   ReactDOM.render((
     <Provider store={store}>

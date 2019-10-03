@@ -3,20 +3,23 @@ import Cell from './Cell';
 import { isBlack } from '../../util/notes-util';
 import { notes, numSteps } from '../../redux/config-creators/compositionReducerConfig';
 import { range } from 'lodash';
+import {useSelector} from 'react-redux';
 import './piano-roll.css';
 
 const PianoRoll = ({ currentStep }) => {
+  const drumFiles = useSelector(state => state.drummer.files);
+  const character = useSelector(state => state.character.character);
 
   return (
     <div className='piano-roll'>
       <section className='piano-roll-keys'>
-        {notes.map((n) => {
+        {notes.map((n, i) => {
           const className = ['piano-key', isBlack(n) ? 'black' : 'white'].join(' ');
           return (
             <div
               className={className}
               key={n.name}>
-              <p>{n.name}</p>
+              <p>{character === 'drummer' && drumFiles[i] ? drumFiles[i].name : n.name}</p>
             </div>
           );
         })}

@@ -11,8 +11,9 @@ export default class Sequence {
   }
 
   getNotes(step) {
-    let chord = this.chords[step] || [];
-    return chord.map(note => note + this.frequencyOffset * 10);;
+    return this.chords[step] || [];
+    // let chord = this.chords[step] || [];
+    // return chord.map(note => note + this.frequencyOffset * 10);;
   }
 
   addNote = ({ index, freq }) => {

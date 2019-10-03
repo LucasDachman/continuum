@@ -1,6 +1,7 @@
 
 import { generateNotes, midiToNote, nameToNote } from '../../util/notes-util';
 import { scale } from '@tonaljs/scale';
+import { range } from 'lodash';
 
 export const numNotes = 14;
 export const numSteps = 16;
@@ -10,13 +11,14 @@ export const startNote = 36;
 export const notes = [...scale('B3 minor').notes, ...scale('B4 minor').notes].map(nameToNote);
 
 export const createCompositionSliceConfig = () => ({
-  initialState: new Array(numNotes)
-    .fill(null)
-    .map((_, i) => new Array(numSteps).fill(null)
-      .map(() => ({
-        active: false,
-        note: notes[i],
-      }))
+  initialState: range(numNotes)
+    .map(i =>
+      range(numSteps)
+        .map(() => ({
+          active: false,
+          note: notes[i],
+          keyIndex: i
+        }))
     ),
   reducers: {
     setCompositionCell(state, action) {

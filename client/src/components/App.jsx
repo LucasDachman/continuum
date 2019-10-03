@@ -8,6 +8,7 @@ import './App.css';
 import { octaveNotes } from '../util/notes-util';
 import { sequencer } from '../index';
 import { connect } from 'react-redux';
+import DrumSequencer from './piano-roll/DrumSequencer.jsx';
 import LennySynth from '../LennySynth/LennySynth';
 import Drummer from '../Drummer/Drummer';
 
@@ -77,6 +78,7 @@ const App = ({ character }) => {
       <Drummer />
       <section id='sequencer'>
         <PianoRoll currentStep={currentStep} />
+        <DrumSequencer />
       </section>
     </main>
   );
