@@ -3,12 +3,9 @@ import Cell from './Cell';
 import { isBlack } from '../../util/notes-util';
 import { notes, numSteps } from '../../redux/config-creators/compositionReducerConfig';
 import { range } from 'lodash';
-import { useSelector } from 'react-redux';
 import './piano-roll.css';
 
 const PianoRoll = ({ currentStep }) => {
-  const drumFiles = useSelector(state => state.drummer.files);
-  const character = useSelector(state => state.character.character);
 
   return (
     <div className='piano-roll'>
@@ -19,7 +16,7 @@ const PianoRoll = ({ currentStep }) => {
             <div
               className={className}
               key={n.name}>
-              <p>{character === 'drummer' && drumFiles[i] ? drumFiles[i].name : n.name}</p>
+              <p>{n.name}</p>
             </div>
           );
         })}
@@ -30,10 +27,7 @@ const PianoRoll = ({ currentStep }) => {
             <section key={n.name} className={'step-row'}>
               {
                 range(numSteps).map(colNum =>
-                  <Fragment key={`${rowNum}, ${colNum}`}>
-                    {currentStep === colNum && <VDivider />}
-                    <Cell row={rowNum} col={colNum} />
-                  </Fragment>
+                  <Cell key={colNum} row={rowNum} col={colNum} playing={currentStep === colNum} />
                 )
               }
             </section>
@@ -43,14 +37,5 @@ const PianoRoll = ({ currentStep }) => {
     </div>
   );
 }
-
-const VDivider = () => (
-  <div style={{
-    height: '100%',
-    width: '0px',
-  }}>
-    <div style={{ height: '100%', width: '1px', zIndex: 2, backgroundColor: '#E6E6E6' }} />
-  </div>
-);
 
 export default PianoRoll;

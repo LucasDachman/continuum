@@ -73,13 +73,12 @@ const App = ({ character }) => {
           <option value='Minor'>Minor</option>
         </select>
       </section>
-      <Synth1 />
       <BassSynth />
       <LennySynth />
       <Drummer />
       <section id='sequencer'>
         <PianoRoll currentStep={currentStep} />
-        <DrumSequencer />
+        <DrumSequencer currentStep={currentStep}/>
       </section>
     </main>
   );

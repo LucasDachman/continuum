@@ -1,7 +1,32 @@
 @import url('https://fonts.googleapis.com/css?family=Gothic+A1:400,700,900|Open+Sans&display=swap');
 
+:root {
+  --black: #0D0D0D;
+  --lightest-grey: #E6E6E6;
+  --light-grey: #D5D5D5;
+  --grey: #939393;
+  --dark-grey: rgb(121, 121, 121);
+
+  --synth1Color: #26C6C6;
+  --synth1Dark: rgb(25, 128, 128);
+  --synth1Light: rgb(46, 223, 223);
+
+  --bassColor: rgb(206, 87, 87);
+  --bassDark: rgb(138, 44, 44);
+  --bassLight: rgb(248, 147, 147);
+
+  --lennyColor: #ffd62b;
+  --lennyDark: #91781e;
+  --lennyLight: #ffe57d;
+
+  --drummerColor: rgb(64, 124, 202);
+  --drummerDark: rgb(28, 67, 119);
+  --drummerLight: rgb(107, 162, 235);
+}
+
 html {
   font-family: 'Open Sans', sans-serif;
+  color: var(--black);
 }
 
 body {
@@ -44,6 +69,8 @@ main {
   grid-area: center;
   width: 100%;
   height: 100%;
+  display: grid;
+  grid-template-rows: 2fr 1fr;
 }
 
 #play-button {
@@ -52,9 +79,9 @@ main {
   display: block;
 }
 
-.synth {
+/* .synth {
   border: 1px solid lightgray;
-}
+} */
 
 .bass-synth {
   grid-area: top;
