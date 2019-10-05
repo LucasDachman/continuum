@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import DrumSequencer from './piano-roll/DrumSequencer.jsx';
 import LennySynth from '../LennySynth/LennySynth';
 import Drummer from '../Drummer/Drummer';
+import Matchmaking from './Matchmaking';
 
 const mapStateToProps = state => ({
   character: state.character.character
@@ -53,7 +54,7 @@ const App = ({ character }) => {
     isPlaying ? sequencer.start() : sequencer.stop();
   }, [isPlaying])
 
-  return !audioContextStarted ? 'Click' : (
+  return !audioContextStarted ? <Matchmaking /> : (
     <main>
       <section id='control-panel'>
         <p>You are: {character}</p>
