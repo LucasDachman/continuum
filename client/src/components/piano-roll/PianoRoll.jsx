@@ -3,7 +3,7 @@ import Cell from './Cell';
 import { isBlack } from '../../util/notes-util';
 import { notes, numSteps } from '../../redux/config-creators/compositionReducerConfig';
 import { range } from 'lodash';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import './piano-roll.css';
 
 const PianoRoll = ({ currentStep }) => {
@@ -27,21 +27,16 @@ const PianoRoll = ({ currentStep }) => {
       <section className='piano-roll-editor'>
         {
           notes.map((n, rowNum) =>
-            <React.Fragment key={rowNum} >
-              <section className={`step-row ${isBlack(n) ? 'black' : 'white'}`}>
-                {
-                  range(numSteps).map(colNum =>
-                    <Fragment key={`${rowNum}, ${colNum}`}>
-                      {currentStep === colNum && <VDivider />}
-                      <Cell
-                        row={rowNum}
-                        col={colNum}
-                      />
-                    </Fragment>
-                  )
-                }
-              </section>
-            </React.Fragment>
+            <section key={n.name} className={'step-row'}>
+              {
+                range(numSteps).map(colNum =>
+                  <Fragment key={`${rowNum}, ${colNum}`}>
+                    {currentStep === colNum && <VDivider />}
+                    <Cell row={rowNum} col={colNum} />
+                  </Fragment>
+                )
+              }
+            </section>
           )
         }
       </section>

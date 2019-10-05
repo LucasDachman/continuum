@@ -1,6 +1,4 @@
 import { createSlice } from 'redux-starter-kit';
-import { numSteps } from '../redux/config-creators/compositionReducerConfig';
-import { range } from 'lodash';
 import { createCompositionSliceConfig } from '../redux/config-creators/compositionReducerConfig';
 
 import kick from '../audio-files/kicks/kick_01.wav';

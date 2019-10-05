@@ -5,7 +5,6 @@ import {
   CircularInput,
   CircularTrack,
   CircularProgress,
-  CircularThumb,
 } from 'react-circular-input';
 import DialIndicator from './DialIndicator';
 
@@ -24,7 +23,6 @@ const Dial = ({ value, onChange, children }) => {
           <CircularTrack stroke='lightgray' strokeWidth={1} strokeLinecap='square'/>
           <CircularProgress stroke='black' strokeWidth={2}  strokeLinecap='square'/>
           <DialIndicator strokeWidth={2}/>
-          {/* <CircularThumb r='6' /> */}
         </CircularInput>
       </div>
       <div style={{ zIndex: -1 }}>{children}</div>

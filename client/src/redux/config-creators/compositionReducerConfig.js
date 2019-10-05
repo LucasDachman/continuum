@@ -1,5 +1,5 @@
 
-import { generateNotes, midiToNote, nameToNote } from '../../util/notes-util';
+import { midiToNote, nameToNote } from '../../util/notes-util';
 import { scale } from '@tonaljs/scale';
 import { range } from 'lodash';
 

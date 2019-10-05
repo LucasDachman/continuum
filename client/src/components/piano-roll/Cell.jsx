@@ -1,18 +1,9 @@
 import React, { useCallback, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  toggleCompositionCell as toggle1
-} from '../../redux/reducers/synth1Reducer';
-import {
-  toggleCompositionCell as toggleBass
-} from '../../BassSynth/bassReducer';
-import {
-  toggleCompositionCell as toggleLenny
-} from '../../LennySynth/lennyReducer';
-import {
-  toggleCompositionCell as toggleDrummer
-} from '../../Drummer/drummerReducer';
-import { isBlack } from '../../util/notes-util';
+import { toggleCompositionCell as toggle1 } from '../../redux/reducers/synth1Reducer';
+import { toggleCompositionCell as toggleBass } from '../../BassSynth/bassReducer';
+import { toggleCompositionCell as toggleLenny } from '../../LennySynth/lennyReducer';
+import { toggleCompositionCell as toggleDrummer } from '../../Drummer/drummerReducer';
 import _ from 'lodash'
 
 const toggleActions = {
@@ -39,26 +30,19 @@ const Cell = ({ row, col }) => {
     drummer: useSelector(state => state.drummer.composition[row][col])
   };
 
-  const black = isBlack(cells[currentCharacter].note);
-  const className = ['piano-cell',
-    black ? 'black' : 'white',
-  ].join(' ');
-
   return (
-    <>
-      <span className={className} onClick={handleClick} >
-        {
-          _.map(cells, (cell, character) => {
-            return (cell.active &&
-              <span
-                key={character}
-                onClick={handleClick}
-                className={`cell-trigger cell-trigger-${character}`}
-              />)
-          })
-        }
-      </span>
-    </>
+    <span className='piano-cell' onClick={handleClick} >
+      {
+        _.map(cells, (cell, character) => {
+          return (cell.active &&
+            <span
+              key={character}
+              onClick={handleClick}
+              className={`cell-trigger cell-trigger-${character}`}
+            />)
+        })
+      }
+    </span>
   );
 }
 
