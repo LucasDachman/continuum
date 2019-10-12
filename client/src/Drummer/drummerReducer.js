@@ -1,7 +1,7 @@
 import { createSlice } from 'redux-starter-kit';
 import { createCompositionSliceConfig } from '../redux/config-creators/compositionReducerConfig';
 
-import kick from '../audio-files/kicks/kick_01.wav';
+import kick from '../audio-files/kicks/kick_02.wav';
 import snare from '../audio-files/snares/snare_01.wav'
 import rim from '../audio-files/rims/rim_01.wav';
 import shakerSnap from '../audio-files/shaker_snaps/shaker_snap_01.wav';

@@ -13,6 +13,7 @@ export default class Sequencer {
     this.numSteps = numSteps;
     Tone.Transport.bpm.value = bpm;
     Tone.Transport.start('+0.1');
+
     this.loop = new Tone.Loop(this._loopCallback, '16n');
     this.loop.humanize = true;
   }

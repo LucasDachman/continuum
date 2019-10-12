@@ -29,7 +29,7 @@ export const setupSocketEvents = (socket, ioServer) => {
     });
   }
   else {
-    socket.emit('init', { character, numUsers });
+    socket.emit('init', { character, numUsers, startTime: Date.now() });
   }
 
   console.log(`User ${socket.id} (${character}) has joined the session.`)

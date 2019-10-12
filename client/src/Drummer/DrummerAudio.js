@@ -21,7 +21,6 @@ export default class DrummerAudio {
       new Tone.Limiter(),
       Tone.Master
     );
-    console.log(this.urls)
   }
 
   triggerAttackRelease = (notes, length, time) => {
