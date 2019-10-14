@@ -35,12 +35,16 @@ const Cell = ({ row, col, playing }) => {
     <span className={className} onClick={handleClick} >
       {
         _.map(cells, (cell, character) => {
-          return (cell.active &&
-            <span
-              key={character}
-              onClick={handleClick}
-              className={`cell-trigger cell-trigger-${character} ${playing ? 'playing' : ''}`}
-            />)
+          if (!cell.active) return;
+          const cn = 'cell-trigger ' +
+            `cell-trigger-${character} ` +
+            `${playing ? 'playing' : ''} ` +
+            `${currentCharacter === character ? 'current' : ''} `
+          return <span
+            key={character}
+            onClick={handleClick}
+            className={cn}
+          />
         })
       }
     </span>

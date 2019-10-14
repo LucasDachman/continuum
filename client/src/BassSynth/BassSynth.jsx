@@ -44,7 +44,7 @@ const BassSynth = ({
   return (
     <div className='bass-synth synth'>
       <h2>Bass Synth</h2>
-      <div className='knob-row knob-row-horizontal'>
+      <div className='knob-row'>
         <Dial
           value={length}
           onChange={setLength} >

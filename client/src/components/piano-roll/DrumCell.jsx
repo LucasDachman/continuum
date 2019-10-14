@@ -15,7 +15,8 @@ const Cell = ({ row, col, playing }) => {
   }, [row, col, dispatch, currentCharacter]);
 
   const cell = useSelector(state => state.drummer.composition[row][col]);
-  const className = currentCharacter === 'drummer' ? 'piano-cell clickable' : 'piano-cell';
+  const isDrummer = currentCharacter === 'drummer';
+  const className =  isDrummer ? 'piano-cell clickable' : 'piano-cell';
 
   return (
     <span className={className} onClick={handleClick} >
@@ -23,7 +24,11 @@ const Cell = ({ row, col, playing }) => {
         cell.active &&
         <span
           onClick={handleClick}
-          className={`cell-trigger cell-trigger-drummer ${playing ? 'playing' : ''}`}
+          className={
+            'cell-trigger cell-trigger-drummer ' +
+            `${playing ? 'playing' : ''} ` +
+            `${isDrummer ? 'current' : ''}`
+          }
         />
       }
     </span>

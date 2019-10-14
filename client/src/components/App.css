@@ -14,10 +14,12 @@
   --bassColor: rgb(206, 87, 87);
   --bassDark: rgb(138, 44, 44);
   --bassLight: rgb(248, 147, 147);
+  --bassDull: #ea8989;
 
   --lennyColor: #ffd62b;
   --lennyDark: #91781e;
-  --lennyLight: #ffe57d;
+  --lennyLight: #fce796;
+  --lennyDull: #f9dd6d;
 
   --drummerColor: rgb(64, 124, 202);
   --drummerDark: rgb(28, 67, 119);
@@ -84,10 +86,11 @@ main {
 } */
 
 .bass-synth {
-  grid-area: top;
+  grid-area: left;
+  flex-direction: column;
   display: flex;
   justify-content: space-around;
-  align-items: baseline;
+  align-items: center;
 }
 
 .bass-synth h2 {
@@ -130,10 +133,11 @@ main {
 }
 
 .knob-row {
-  display: flex;
+  display: inherit;
+  flex-direction: inherit;
 }
 
-.knob-row-horizontal {
+/* .knob-row-horizontal {
   flex-direction: row;
   justify-content: center;
 }
@@ -141,4 +145,4 @@ main {
 .knob-row-vertical {
   flex-direction: column;
   justify-content: flex-start;
-}
+} */
