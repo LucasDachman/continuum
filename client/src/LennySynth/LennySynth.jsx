@@ -12,7 +12,8 @@ const mapStateToProps = state => ({
   reverb: state.lenny.reverb,
   length: state.lenny.length,
   phaser: state.lenny.phaser,
-  vibratoDepth: state.lenny.vibratoDepth
+  vibratoDepth: state.lenny.vibratoDepth,
+  currentCharacter: state.character.character
 });
 
 const mapDispatchToProps = {
@@ -30,24 +31,29 @@ const LennySynth = ({
   phaser,
   setPhaser,
   vibratoDepth,
-  setVibratoDepth
+  setVibratoDepth,
+  currentCharacter
 }) => {
+  const disabled = currentCharacter !== 'lenny';
   return (
     <div className='lenny-synth synth'>
-      <h2>Lenny</h2>
+      <h2>Synth</h2>
       <div className='knob-row knob-row-vertical'>
         <Dial
+          disabled={disabled}
           value={length}
           onChange={setLength} >
           Length
         </Dial>
         <Dial
+          disabled={disabled}
           value={reverb}
           onChange={setReverb} >
           Reverb
         </Dial>
         <input type='checkbox' checked={phaser} onChange={useCallback(e => setPhaser(e.target.checked), [setPhaser])} />
         <Dial
+          disabled={disabled}
           value={vibratoDepth}
           onChange={setVibratoDepth} >
           Vibrato

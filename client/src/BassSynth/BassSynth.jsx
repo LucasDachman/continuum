@@ -25,6 +25,7 @@ const mapStateToProps = state => ({
   filterDecay: state.bass.filter.decay,
   filterRange: state.bass.filter.range,
   filterQ: state.bass.filter.q,
+  currentCharacter: state.character.character
 });
 
 const BassSynth = ({
@@ -38,34 +39,41 @@ const BassSynth = ({
   filterDecay,
   filterRange,
   filterQ,
+  currentCharacter
 }) => {
 
+  const disabled = currentCharacter !== 'bass';
   // actual render code
   return (
     <div className='bass-synth synth'>
-      <h2>Bass Synth</h2>
+      <h2>Bass</h2>
       <div className='knob-row'>
         <Dial
+          disabled={disabled}
           value={length}
           onChange={setLength} >
           Length
         </Dial>
         <Dial
+          disabled={disabled}
           value={shape}
           onChange={setShape} >
           Shape
         </Dial>
         <Dial
+          disabled={disabled}
           value={filterDecay}
           onChange={setFilterDecay} >
           Decay
         </Dial>
         <Dial
+          disabled={disabled}
           value={filterRange}
           onChange={setFilterRange} >
           Brightness
         </Dial>
         <Dial
+          disabled={disabled}
           value={filterQ}
           onChange={setFilterQ} >
           Harshness

@@ -71,7 +71,8 @@
 .piano-key p {
   width: 0px;
   font-size: 10px;
-  display:
+  float: left;
+  /* display: */
   /* overflow-wrap: break-word; */
   /* word-wrap: break-word; */
   /* hyphens: auto; */

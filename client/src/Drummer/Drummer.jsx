@@ -5,6 +5,7 @@ import Dial from '../components/util/Dial.jsx';
 
 const mapStateToProps = state => ({
   filterFreq: state.drummer.filterFreq,
+  currentCharacter: state.character.character
 });
 
 const mapDispatchToProps = {
@@ -13,15 +14,18 @@ const mapDispatchToProps = {
 
 const Drummer = ({
   filterFreq,
-  setFilterFreq
+  setFilterFreq,
+  currentCharacter
 }) => {
+  const disabled = currentCharacter !== 'drummer';
   return (
     <div className='drummer-synth synth'>
-      <h2>Drummer</h2>
+      <h2>Drums</h2>
       <div className='knob-row knob-row-horizontal'>
         <Dial
           value={filterFreq}
-          onChange={setFilterFreq}>
+          onChange={setFilterFreq}
+          disabled={disabled}>
           Filter Freq
         </Dial>
       </div>

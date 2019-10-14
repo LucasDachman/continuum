@@ -8,7 +8,7 @@ import {
 } from 'react-circular-input';
 import DialIndicator from './DialIndicator';
 
-const Dial = ({ value, onChange, children }) => {
+const Dial = ({ value, onChange, children, disabled }) => {
 
   const handleChange = useCallback(throttle(v => {
     onChange(v)
@@ -19,7 +19,7 @@ const Dial = ({ value, onChange, children }) => {
       <div>
         <CircularInput radius={21}
           value={value}
-          onChange={handleChange}>
+          onChange={disabled ? () => {} : handleChange}>
           <CircularTrack stroke='lightgray' strokeWidth={1} strokeLinecap='square'/>
           <CircularProgress stroke='black' strokeWidth={2}  strokeLinecap='square'/>
           <DialIndicator strokeWidth={2}/>
