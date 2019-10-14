@@ -1,4 +1,4 @@
-
+@import '../App.css';
 
 .piano-roll {
   min-height: 0;
@@ -15,6 +15,18 @@
   box-sizing: border-box;
 }
 
+.piano-roll.bass {
+  border-left: 6px solid var(--bassColor);
+}
+
+.piano-roll.lenny {
+  border-right: 6px solid var(--lennyColor);
+}
+
+.piano-roll.drum-sequencer.drummer {
+  border-bottom: 6px solid var(--drummerColor);
+}
+
 .piano-roll.drum-sequencer {
   flex-shrink: 1;
 }
@@ -29,7 +41,7 @@
 
 .piano-roll-keys {
   min-height: 0px;
-  width: 35px;
+  width: 0px;
   display: flex;
   flex-flow: column-reverse nowrap;
   justify-content: flex-end;
@@ -46,7 +58,8 @@
 .piano-key {
   height: 100%;
   min-height: 0px;
-  padding: 0px;;
+  padding: 0px;
+  ;
   margin: 0px;
   display: flex;
   flex-flow: column nowrap;
@@ -56,10 +69,12 @@
 }
 
 .piano-key p {
+  width: 0px;
   font-size: 10px;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  hyphens: auto;
+  display:
+  /* overflow-wrap: break-word; */
+  /* word-wrap: break-word; */
+  /* hyphens: auto; */
 }
 
 .piano-key.black {

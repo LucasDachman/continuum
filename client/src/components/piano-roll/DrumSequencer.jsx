@@ -7,10 +7,11 @@ import DrumCell from './DrumCell';
 
 const DrumSequencer = ({ currentStep }) => {
   const drumFiles = useSelector(state => state.drummer.files);
+  const currentCharacter = useSelector(state => state.character.character);
 
   return (
-    <div className='piano-roll drum-sequencer'>
-      <section className='piano-roll-keys'>
+    <div className={`piano-roll drum-sequencer ${currentCharacter === 'drummer' ? 'drummer' : ''}`}>
+      <div className='piano-roll-keys'>
         {drumFiles.map((file, i) =>
           <div
             className='piano-key'
@@ -18,7 +19,7 @@ const DrumSequencer = ({ currentStep }) => {
             <p>{drumFiles[i].name}</p>
           </div>
         )}
-      </section>
+      </div>
       <section className='piano-roll-editor'>
         {
           drumFiles.map((n, rowNum) =>

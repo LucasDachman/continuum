@@ -16,14 +16,15 @@
   --bassLight: rgb(248, 147, 147);
   --bassDull: #ea8989;
 
-  --lennyColor: #ffd62b;
+  --lennyColor: #ffd013;
   --lennyDark: #91781e;
-  --lennyLight: #fce796;
-  --lennyDull: #f9dd6d;
+  --lennyLight: #fff6d1;
+  --lennyDull: #ffe992;
 
   --drummerColor: rgb(64, 124, 202);
   --drummerDark: rgb(28, 67, 119);
   --drummerLight: rgb(107, 162, 235);
+  --drummerDull: rgb(133, 171, 221);
 }
 
 html {
