@@ -2,7 +2,6 @@
 // in-memory state, this needs to be put somewhere else
 const characterOrder = ['bass', 'lenny', 'drummer'];
 const numCharacters = characterOrder.length;
-// let characters = ['drummer']
 let users = {};
 let intervalSet = false;
 
@@ -29,6 +28,7 @@ export const setupSocketEvents = (socket, ioServer) => {
     socket.disconnect(true);
     return;
   }
+  // find the first available character
   const character = users[socket.id] = characterOrder.find(char => !(Object.values(users).includes(char)));
 
   // send initial state if someone is already in the session
