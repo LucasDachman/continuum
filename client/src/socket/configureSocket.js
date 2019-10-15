@@ -45,5 +45,10 @@ export const makeStoreWithSocket = async () => {
     cb(rest);
   });
 
+  socket.on('CHARACTER_CHANGE', ({ charactersById }) => {
+    const character = charactersById[socket.id];
+    store.dispatch(setCharacter({ character }))
+  });
+
   return store;
 }

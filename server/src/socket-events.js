@@ -1,18 +1,35 @@
 
 // in-memory state, this needs to be put somewhere else
-let characters = ['drummer', 'lenny', 'bass'];
+const characterOrder = ['bass', 'lenny', 'drummer'];
+const numCharacters = characterOrder.length;
 // let characters = ['drummer']
 let users = {};
+let intervalSet = false;
 
 export const setupSocketEvents = (socket, ioServer) => {
 
+  if (!intervalSet) {
+    intervalSet = true;
+    setInterval(() => {
+      users = Object.entries(users).reduce((acc, [id, character], i) => {
+        console.log({ id, character })
+        const position = characterOrder.indexOf(character)
+        const newChar = characterOrder[(position + 1) % numCharacters]
+        acc[id] = newChar;
+        return acc;
+      }, {});
+      ioServer.sockets.emit('CHARACTER_CHANGE', { charactersById: users });
+    }, 20000);
+  }
+
   // prevent extra users from joining
-  if (characters.length === 0) {
+  const roomFull = Object.values(users).length === characterOrder.length;
+  if (roomFull) {
     socket.emit('init', 'Session Full 🤷‍');
     socket.disconnect(true);
     return;
   }
-  const character = users[socket.id] = characters.shift();
+  const character = users[socket.id] = characterOrder.find(char => !(Object.values(users).includes(char)));
 
   // send initial state if someone is already in the session
   const numUsers = Object.keys(users).length
@@ -42,8 +59,6 @@ export const setupSocketEvents = (socket, ioServer) => {
 
   socket.on('disconnect', () => {
     console.log(`User ${socket.id} (${users[socket.id]}) has left the session.`)
-    // add the character back
-    characters.push(users[socket.id]);
     // remove the character from list of users
     delete users[socket.id];
   });
