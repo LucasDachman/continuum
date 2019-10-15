@@ -1,6 +1,6 @@
 
 // in-memory state, this needs to be put somewhere else
-const INTERVAL_TIME = 5000;
+const INTERVAL_TIME = 60000;
 const characterOrder = ['bass', 'lenny', 'drummer'];
 const numCharacters = characterOrder.length;
 let users = {};
@@ -49,7 +49,7 @@ export const setupSocketEvents = (socket, ioServer) => {
     });
   }
   else {
-    socket.emit('init', { character, numUsers, startTime: Date.now() });
+    socket.emit('init', { character, numUsers });
   }
 
   console.log(`User ${socket.id} (${character}) has joined the session.`)

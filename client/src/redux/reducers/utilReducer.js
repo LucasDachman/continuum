@@ -3,7 +3,8 @@ import { createSlice } from 'redux-starter-kit';
 const utilSlice = createSlice({
   initialState: {
     message: 'Hello, World',
-    startTime: null
+    startTime: null,
+    nextInterval: 0,
   },
   reducers: {
     setMessage(state, action) {
@@ -12,9 +13,12 @@ const utilSlice = createSlice({
     },
     setStartTime(state, action) {
       state.startTime = action.payload;
+    },
+    setNextInterval(state, action) {
+      state.nextInterval = action.payload;
     }
   }
 });
 
-export const { setMessage, setStartTime } = utilSlice.actions;
+export const { setMessage, setStartTime, setNextInterval } = utilSlice.actions;
 export default utilSlice.reducer;

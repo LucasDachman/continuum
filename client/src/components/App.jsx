@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Synth1 from './Synth1/Synth1';
 import BassSynth from '../BassSynth/BassSynth.jsx';
 import PianoRoll from './piano-roll/PianoRoll.jsx';
 import Tone from 'tone';
-import startAudioContext from 'startaudiocontext';
 import './App.css';
 import { octaveNotes } from '../util/notes-util';
 import { sequencer } from '../index';
@@ -11,7 +9,6 @@ import { connect } from 'react-redux';
 import DrumSequencer from './piano-roll/DrumSequencer.jsx';
 import LennySynth from '../LennySynth/LennySynth';
 import Drummer from '../Drummer/Drummer';
-import Matchmaking from './Matchmaking';
 
 const mapStateToProps = state => ({
   character: state.character.character
@@ -19,7 +16,6 @@ const mapStateToProps = state => ({
 
 const App = ({ character }) => {
   const [isPlaying, setPlaying] = useState(false);
-  const [audioContextStarted, setAudioContextStarted] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [tonic, setTonic] = useState(octaveNotes[0]);
   const [scale, setScale] = useState('major');
@@ -39,22 +35,13 @@ const App = ({ character }) => {
 
   // runs once after first render
   useEffect(() => {
-    // wait for audio context to start before rendering
-    startAudioContext(Tone.context).then(() => {
-      setAudioContextStarted(true);
-    });
-
-    // callback for sequencer1
+    // callback for sequencer
     sequencer.onTick = step => {
       setCurrentStep(step);
     }
   }, []);
 
-  useEffect(() => {
-    isPlaying ? sequencer.start() : sequencer.stop();
-  }, [isPlaying])
-
-  return !audioContextStarted ? <Matchmaking /> : (
+  return (
     <main>
       <section id='control-panel'>
         <p>You are: {character}</p>

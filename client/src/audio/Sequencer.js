@@ -32,10 +32,16 @@ export default class Sequencer {
   }
 
   _onTick(time, step) {
-    if (!this.onTick) return;
-    Tone.Draw.schedule(() => {
-      this.onTick(step);
-    }, time)
+    if (step === 0 && this.onLoop) {
+      Tone.Draw.schedule(() => {
+        this.onLoop(Date.now());
+      }, time);
+    }
+    if (this.onTick) {
+      Tone.Draw.schedule(() => {
+        this.onTick(step);
+      }, time)
+    }
   }
 
   createSequence = (synth) => {

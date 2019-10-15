@@ -1,10 +1,11 @@
 import io from 'socket.io-client';
 import makeStore from '../redux/store';
 import { setCharacter } from '../redux/reducers/characterReducer';
-import { setStartTime } from '../redux/reducers/utilReducer';
+import { sequencer } from '../index';
 
 const blackList = [
-  'setCharacter'
+  'setCharacter',
+  'setNextInterval'
 ]
 
 const makeActionEmitter = socket => store => next => action => {
@@ -18,14 +19,13 @@ const makeActionEmitter = socket => store => next => action => {
 export const makeStoreWithSocket = async () => {
   const socket = io(process.env.REACT_APP_SERVER_URI, { transports: ['websocket'] });
 
-  let character, startTime;
+  let character;
   // wait for initial state from server before creating store
   const initialState = await new Promise(resolve => {
     socket.on('init', config => {
       console.log(config);
       console.log('You are player ', config.character);
       character = config.character;
-      startTime = config.startTime;
       resolve(config.state);
     });
   });
@@ -34,7 +34,6 @@ export const makeStoreWithSocket = async () => {
   const store = makeStore([actionEmitter], initialState);
 
   store.dispatch(setCharacter({ character }));
-  store.dispatch(setStartTime(startTime));
 
   socket.on('action', action => {
     store.dispatch(action);
