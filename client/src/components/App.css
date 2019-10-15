@@ -82,9 +82,13 @@ main {
   display: block;
 }
 
-/* .synth {
-  border: 1px solid lightgray;
-} */
+.synth h2 {
+  color: var(--light-grey)
+}
+
+.synth.current h2 {
+  color: var(--black)
+}
 
 .bass-synth {
   grid-area: left;
@@ -94,15 +98,8 @@ main {
   align-items: center;
 }
 
-.bass-synth h2 {
-  line-height: 1;
-  margin: 12px 12px 0 12px;
-}
-
-.synth-1 {
-  grid-area: left;
-  display: flex;
-  justify-content: center;
+.bass-synth.current h2 {
+  color: var(--black);
 }
 
 .lenny-synth {

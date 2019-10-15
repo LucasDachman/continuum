@@ -36,7 +36,7 @@ const LennySynth = ({
 }) => {
   const disabled = currentCharacter !== 'lenny';
   return (
-    <div className='lenny-synth synth'>
+    <div className={`lenny-synth synth ${disabled ? '' : 'current'} `}>
       <h2>Synth</h2>
       <div className='knob-row knob-row-vertical'>
         <Dial
