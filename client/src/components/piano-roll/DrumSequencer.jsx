@@ -11,7 +11,7 @@ const DrumSequencer = ({ currentStep }) => {
 
   return (
     <div className={`piano-roll drum-sequencer ${currentCharacter === 'drummer' ? 'drummer' : ''}`}>
-      <div className='piano-roll-keys'>
+      {/* <div className='piano-roll-keys'>
         {drumFiles.map((file, i) =>
           <div
             className='piano-key'
@@ -19,7 +19,7 @@ const DrumSequencer = ({ currentStep }) => {
             <p>{drumFiles[i].name}</p>
           </div>
         )}
-      </div>
+      </div> */}
       <section className='piano-roll-editor'>
         {
           drumFiles.map((n, rowNum) =>

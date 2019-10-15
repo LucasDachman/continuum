@@ -58,7 +58,7 @@ main {
   "left center right" 
   ".    bottom    . ";
   grid-template-columns: 15vw minmax(0, auto) 15vw;
-  grid-template-rows: 60px 15vh minmax(0, auto) 15vh
+  grid-template-rows: 60px 60px minmax(0, auto) 20vh
 }
 
 #control-panel {

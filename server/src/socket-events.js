@@ -1,5 +1,6 @@
 
 // in-memory state, this needs to be put somewhere else
+const INTERVAL_TIME = 5000;
 const characterOrder = ['bass', 'lenny', 'drummer'];
 const numCharacters = characterOrder.length;
 let users = {};
@@ -11,14 +12,16 @@ export const setupSocketEvents = (socket, ioServer) => {
     intervalSet = true;
     setInterval(() => {
       users = Object.entries(users).reduce((acc, [id, character], i) => {
-        console.log({ id, character })
         const position = characterOrder.indexOf(character)
         const newChar = characterOrder[(position + 1) % numCharacters]
         acc[id] = newChar;
         return acc;
       }, {});
+      console.group('Character change');
+      console.log(users);
+      console.groupEnd();
       ioServer.sockets.emit('CHARACTER_CHANGE', { charactersById: users });
-    }, 20000);
+    }, INTERVAL_TIME);
   }
 
   // prevent extra users from joining

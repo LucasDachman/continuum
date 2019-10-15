@@ -14,6 +14,8 @@ const Dial = ({ value, onChange, children, disabled }) => {
     onChange(v)
   }, 100), [onChange])
 
+  const mainColor = disabled ? 'lightgray' : 'black'
+
   return (
     <div className='knob'>
       <div>
@@ -21,11 +23,11 @@ const Dial = ({ value, onChange, children, disabled }) => {
           value={value}
           onChange={disabled ? () => {} : handleChange}>
           <CircularTrack stroke='lightgray' strokeWidth={1} strokeLinecap='square'/>
-          <CircularProgress stroke='black' strokeWidth={2}  strokeLinecap='square'/>
-          <DialIndicator strokeWidth={2}/>
+          <CircularProgress stroke={mainColor} strokeWidth={2}  strokeLinecap='square'/>
+          <DialIndicator strokeWidth={2} stroke={mainColor}/>
         </CircularInput>
       </div>
-      <div style={{ zIndex: -1 }}>{children}</div>
+      <div style={{ color: mainColor, zIndex: -1 }}>{children}</div>
     </div>
   );
 }
