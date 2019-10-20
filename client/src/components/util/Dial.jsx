@@ -1,5 +1,6 @@
 import React, { memo, useCallback } from 'react';
 import { throttle } from 'lodash';
+import { useSelector } from 'react-redux';
 
 import {
   CircularInput,
@@ -14,20 +15,22 @@ const Dial = ({ value, onChange, children, disabled }) => {
     onChange(v)
   }, 100), [onChange])
 
-  const mainColor = disabled ? 'lightgray' : 'black'
+  const char = useSelector(state => state.character.character);
+  const textColor = disabled ? 'lightgray' : 'black'
+  const mainColor = disabled ? 'lightgray' : `var(--${char}Dark)`
 
   return (
     <div className='knob'>
       <div>
         <CircularInput radius={21}
           value={value}
-          onChange={disabled ? () => {} : handleChange}>
-          <CircularTrack stroke='lightgray' strokeWidth={1} strokeLinecap='square'/>
-          <CircularProgress stroke={mainColor} strokeWidth={2}  strokeLinecap='square'/>
-          <DialIndicator strokeWidth={2} stroke={mainColor}/>
+          onChange={disabled ? () => { } : handleChange}>
+          <CircularTrack stroke='lightgray' strokeWidth={1} strokeLinecap='square' />
+          <CircularProgress stroke={mainColor} strokeWidth={2} strokeLinecap='square' />
+          <DialIndicator strokeWidth={2} stroke={mainColor} />
         </CircularInput>
       </div>
-      <div style={{ color: mainColor, zIndex: -1 }}>{children}</div>
+      <div style={{ color: textColor, zIndex: -1 }}>{children}</div>
     </div>
   );
 }

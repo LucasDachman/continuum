@@ -9,22 +9,22 @@
   flex-flow: row nowrap;
   justify-content: flex-start;
   user-select: none;
-  border: 3px solid lightgray;
-  border-radius: 3px;
+  border: 1px solid lightgray;
+  border-radius: 4px;
   box-sizing: border-box;
 }
 
 .piano-roll.bass {
-  border: 3px solid var(--bassColor);
+  border: 1px solid var(--bassColor);
   flex-shrink: 1;
 }
 
 .piano-roll.lenny {
-  border: 3px solid var(--lennyColor);
+  border: 1px solid var(--lennyColor);
 }
 
 .piano-roll.drum-sequencer.drummer {
-  border: 3px solid var(--drummerColor);
+  border: 1px solid var(--drummerColor);
 }
 
 .piano-roll.drum-sequencer {

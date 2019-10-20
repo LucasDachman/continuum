@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import BassSynth from '../BassSynth/BassSynth.jsx';
 import PianoRoll from './piano-roll/PianoRoll.jsx';
-import Tone from 'tone';
 import './App.css';
 import { octaveNotes } from '../util/notes-util';
 import { sequencer } from '../index';
@@ -15,15 +14,9 @@ const mapStateToProps = state => ({
 });
 
 const App = ({ character }) => {
-  const [isPlaying, setPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [tonic, setTonic] = useState(octaveNotes[0]);
   const [scale, setScale] = useState('major');
-
-  const handlePlay = () => {
-    Tone.context.resume();
-    setPlaying(!isPlaying)
-  }
 
   const handleTonicChange = useCallback(e => {
     setTonic(e.target.value);
@@ -44,12 +37,7 @@ const App = ({ character }) => {
   return (
     <main>
       <section id='control-panel'>
-        <p>You are: {character}</p>
-        <button id='play-button'
-          onClick={handlePlay}
-        >
-          {isPlaying ? 'Stop' : 'Play'}
-        </button>
+        <h1>Continuum</h1>
         <select value={tonic} onChange={handleTonicChange}>
           {
             octaveNotes.map(note => <option key={note} value={note}>{note}</option>)

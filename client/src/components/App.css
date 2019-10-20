@@ -16,7 +16,7 @@
   --bassLight: rgb(248, 147, 147);
   --bassDull: #ea8989;
 
-  --lennyColor: #ffd013;
+  --lennyColor: #ffcc00;
   --lennyDark: #91781e;
   --lennyLight: #fff6d1;
   --lennyDull: #ffe992;
@@ -39,6 +39,8 @@ body {
 h1 {
   font-family: 'Gothic A1', 'Helvetica', sans-serif;
   font-weight: 900;
+  font-size: 28px;
+  margin: 0;
 }
 
 h2 {
@@ -53,19 +55,25 @@ main {
   height: 100vh;
   display: grid;
   grid-template-areas: 
-  "head  head   head" 
-  ".     top       ." 
+  ".  head   ." 
   "left center right" 
   ".    bottom    . ";
   grid-template-columns: 15vw minmax(0, auto) 15vw;
-  grid-template-rows: auto-fill 60px 60px minmax(0, auto) 20vh
+  grid-template-rows: auto-fill 60px minmax(0, auto) 20vh
 }
 
 #control-panel {
   grid-area: head;
   display: flex;
-  justify-content: center;
   align-items: baseline;
+}
+
+#control-panel h1 {
+  margin: auto 24px 0px 0px;
+}
+
+#control-panel p {
+  margin: auto 0px 0px 0px;
 }
 
 #sequencer {
@@ -84,18 +92,17 @@ main {
 }
 
 .synth {
-  border: 3px solid lightgray;
   border-radius: 4px;
   margin: 0px 1vw;
   padding: 8px;
 }
 
 .synth h2 {
-  color: var(--light-grey)
+  color: var(--light-grey);
 }
 
 .synth.current h2 {
-  color: var(--black)
+  color: var(--black);
 }
 
 .bass-synth {
@@ -113,6 +120,7 @@ main {
 .lenny-synth {
   grid-area: right;
   display: flex;
+  justify-content: space-around;
   flex-direction: column;
   align-items: center
 }

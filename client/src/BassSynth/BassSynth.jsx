@@ -46,7 +46,6 @@ const BassSynth = ({
   // actual render code
   return (
     <div className={`bass-synth synth ${disabled ? '' : 'current'} `}>
-      <h2>Bass</h2>
       <div className='knob-row'>
         <Dial
           disabled={disabled}

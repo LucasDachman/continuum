@@ -20,7 +20,6 @@ const Drummer = ({
   const disabled = currentCharacter !== 'drummer';
   return (
     <div className={`drummer-synth synth ${disabled ? '' : 'current'} `}>
-      <h2>Drums</h2>
       <div className='knob-row knob-row-horizontal'>
         <Dial
           value={filterFreq}
