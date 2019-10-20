@@ -17,9 +17,6 @@ export const setupSocketEvents = (socket, ioServer) => {
         acc[id] = newChar;
         return acc;
       }, {});
-      console.group('Character change');
-      console.log(users);
-      console.groupEnd();
       ioServer.sockets.emit('CHARACTER_CHANGE', { charactersById: users });
     }, INTERVAL_TIME);
   }

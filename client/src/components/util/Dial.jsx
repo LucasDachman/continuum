@@ -26,7 +26,7 @@ const Dial = ({ value, onChange, children, disabled }) => {
           value={value}
           onChange={disabled ? () => { } : handleChange}>
           <CircularTrack stroke='lightgray' strokeWidth={1} strokeLinecap='square' />
-          <CircularProgress stroke={mainColor} strokeWidth={2} strokeLinecap='square' />
+          <CircularProgress style={{transition: 'stroke 1s'}} stroke={mainColor} strokeWidth={2} strokeLinecap='square' />
           <DialIndicator strokeWidth={2} stroke={mainColor} />
         </CircularInput>
       </div>
