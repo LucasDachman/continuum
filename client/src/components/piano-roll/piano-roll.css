@@ -8,27 +8,28 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
-  margin: auto;
   user-select: none;
-  border: 6px solid lightgray;
+  border: 3px solid lightgray;
   border-radius: 3px;
   box-sizing: border-box;
 }
 
 .piano-roll.bass {
-  border-left: 6px solid var(--bassColor);
+  border: 3px solid var(--bassColor);
+  flex-shrink: 1;
 }
 
 .piano-roll.lenny {
-  border-right: 6px solid var(--lennyColor);
+  border: 3px solid var(--lennyColor);
 }
 
 .piano-roll.drum-sequencer.drummer {
-  border-bottom: 6px solid var(--drummerColor);
+  border: 3px solid var(--drummerColor);
 }
 
 .piano-roll.drum-sequencer {
   flex-shrink: 1;
+  /* margin: 8px 0px; */
 }
 
 .piano-roll-editor {

@@ -1,6 +1,6 @@
 
 // in-memory state, this needs to be put somewhere else
-const INTERVAL_TIME = 60000;
+const INTERVAL_TIME = process.env.I ? process.env.I : 60000;
 const characterOrder = ['bass', 'lenny', 'drummer'];
 const numCharacters = characterOrder.length;
 let users = {};
