@@ -17,7 +17,7 @@ const Dial = ({ value, onChange, children, disabled }) => {
 
   const char = useSelector(state => state.character.character);
   const textColor = disabled ? 'lightgray' : 'black'
-  const mainColor = disabled ? 'lightgray' : `var(--${char}Dark)`
+  const mainColor = disabled ? 'lightgray' : `var(--${char}Color)`
 
   return (
     <div className='knob'>

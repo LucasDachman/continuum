@@ -19,7 +19,7 @@ const Cell = ({ row, col, playing }) => {
   const className =  isDrummer ? 'piano-cell clickable' : 'piano-cell';
 
   return (
-    <span className={className} onClick={handleClick} >
+    <span style={{backgroundColor: playing ? '#f7f7f7' : 'white'}} className={className} onClick={handleClick} >
       {
         cell.active &&
         <span
