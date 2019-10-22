@@ -16,10 +16,12 @@ const Cell = ({ row, col, playing }) => {
 
   const cell = useSelector(state => state.drummer.composition[row][col]);
   const isDrummer = currentCharacter === 'drummer';
-  const className =  isDrummer ? 'piano-cell clickable' : 'piano-cell';
+  let className = 'piano-cell';
+  isDrummer && (className += ' clickable')
+  playing && (className += ' playing')
 
   return (
-    <span style={{backgroundColor: playing ? '#f7f7f7' : 'white'}} className={className} onClick={handleClick} >
+    <span className={className} onClick={handleClick} >
       {
         cell.active &&
         <span

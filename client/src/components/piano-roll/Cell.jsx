@@ -29,10 +29,13 @@ const Cell = ({ row, col, playing }) => {
     lenny: useSelector(state => state.lenny.composition[row][col]),
   };
 
-  const className = currentCharacter in cells ? 'piano-cell clickable' : 'piano-cell';
+  // const className = currentCharacter in cells ? 'piano-cell clickable' : 'piano-cell';
+  let className = 'piano-cell';
+  (currentCharacter in cells) && (className += ' clickable')
+  playing && (className += ' playing')
 
   return (
-    <span style={{backgroundColor: playing ? '#f7f7f7' : 'white'}} className={className} onClick={handleClick} >
+    <span className={className} onClick={handleClick} >
       {
         _.map(cells, (cell, character) => {
           if (!cell.active) return;
