@@ -45,6 +45,7 @@ export function subscribeLennySynth(store, synth) {
 export function subscribeDrummer(store, synth) {
   const synthName = synth.name;
   subscribe(store, `${synthName}.filterFreq`, synth.setFilterFreq);
+  subscribe(store, `${synthName}.delay`, synth.setDelay);
 }
 
 

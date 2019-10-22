@@ -40,12 +40,16 @@ const drummerSlice = createSlice({
   initialState: {
     files,
     filterFreq: 1,
+    delay: 0.1,
     composition: compositionSliceConfig.initialState,
   },
   reducers: {
     ...compositionSliceConfig.reducers,
     setFilterFreq(state, action) {
       state.filterFreq = action.payload;
+    },
+    setDelay(state, action) {
+      state.delay = action.payload
     }
   }
 });
@@ -53,6 +57,7 @@ const drummerSlice = createSlice({
 export const {
   setCompositionCell,
   toggleCompositionCell,
-  setFilterFreq
+  setFilterFreq,
+  setDelay
 } = drummerSlice.actions;
 export default drummerSlice.reducer;

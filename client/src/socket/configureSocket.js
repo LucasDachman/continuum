@@ -8,6 +8,8 @@ const blackList = [
   'setNextInterval'
 ]
 
+const charOverride = process.env.REACT_APP_CHAR;
+
 const makeActionEmitter = socket => store => next => action => {
   const result = next(action);
   if (!(blackList.includes(action.type)) && !action.origin) {
@@ -25,7 +27,7 @@ export const makeStoreWithSocket = async () => {
     socket.on('init', config => {
       console.log(config);
       console.log('You are player ', config.character);
-      character = config.character;
+      character = charOverride ? charOverride : config.character;
       resolve(config.state);
     });
   });
@@ -44,6 +46,7 @@ export const makeStoreWithSocket = async () => {
     cb(rest);
   });
 
+  !charOverride &&
   socket.on('CHARACTER_CHANGE', ({ charactersById }) => {
     const character = charactersById[socket.id];
     store.dispatch(setCharacter({ character }))

@@ -48,14 +48,14 @@ const LennySynth = ({
           disabled={disabled}
           value={reverb}
           onChange={setReverb} >
-          Reverb
+          Space
         </Dial>
         <input type='checkbox' checked={phaser} onChange={useCallback(e => setPhaser(e.target.checked), [setPhaser])} />
         <Dial
           disabled={disabled}
           value={vibratoDepth}
           onChange={setVibratoDepth} >
-          Vibrato
+          Wiggle
           </Dial>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import Tone from 'tone';
 // import { notes } from '../redux/config-creators/compositionReducerConfig';
-import {mapRatioToRange} from '../util/util'
+import { mapRatioToRange } from '../util/util'
+import { clamp } from 'lodash';
 
 export default class DrummerAudio {
   constructor(name, files) {
@@ -10,17 +11,19 @@ export default class DrummerAudio {
       acc[file.index] = file.path
       return acc;
     }, {})
-      // setup effects
+    // setup effects
     this.filter = new Tone.Filter();
+    this.delay = new Tone.FeedbackDelay('8n', 0.5)
 
     // create sampler
     this.synth = new Tone.Players(this.urls)
-    .chain(
-      this.filter,
-      new Tone.Volume(-8),
-      new Tone.Limiter(),
-      Tone.Master
-    );
+      .chain(
+        this.filter,
+        this.delay,
+        new Tone.Volume(-8),
+        new Tone.Limiter(),
+        Tone.Master
+      );
   }
 
   triggerAttackRelease = (notes, length, time) => {
@@ -35,5 +38,10 @@ export default class DrummerAudio {
   setFilterFreq = ratio => {
     // this.filter
     this.filter.frequency.value = mapRatioToRange(Math.pow(ratio, 2), 0, 10000);
+  }
+
+  setDelay = ratio => {
+    this.delay.feedback.value = mapRatioToRange(ratio, 0.2, 0.5);
+    this.delay.wet.value = clamp(ratio - 0.2, 0, 1);
   }
 }

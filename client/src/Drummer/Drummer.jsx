@@ -1,20 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setFilterFreq } from './drummerReducer';
+import { setFilterFreq, setDelay } from './drummerReducer';
 import Dial from '../components/util/Dial.jsx';
 
 const mapStateToProps = state => ({
   filterFreq: state.drummer.filterFreq,
+  delay: state.drummer.delay,
   currentCharacter: state.character.character
 });
 
 const mapDispatchToProps = {
-  setFilterFreq
+  setFilterFreq,
+  setDelay
 }
 
 const Drummer = ({
   filterFreq,
   setFilterFreq,
+  delay,
+  setDelay,
   currentCharacter
 }) => {
   const disabled = currentCharacter !== 'drummer';
@@ -25,7 +29,13 @@ const Drummer = ({
           value={filterFreq}
           onChange={setFilterFreq}
           disabled={disabled}>
-          Filter Freq
+          Brightness
+        </Dial>
+        <Dial
+          value={delay}
+          onChange={setDelay}
+          disabled={disabled}>
+          Delay
         </Dial>
       </div>
     </div>
