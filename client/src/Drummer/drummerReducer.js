@@ -56,7 +56,6 @@ const drummerSlice = createSlice({
 
 export const {
   setCompositionCell,
-  toggleCompositionCell,
   setFilterFreq,
   setDelay
 } = drummerSlice.actions;

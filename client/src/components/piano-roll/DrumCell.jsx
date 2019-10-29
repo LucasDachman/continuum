@@ -1,20 +1,22 @@
 import React, { useCallback, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleCompositionCell as toggleDrummer } from '../../Drummer/drummerReducer';
+import { setCompositionCell as setDrummer } from '../../Drummer/drummerReducer';
 import './cell.css';
 
 
 const Cell = ({ row, col, playing }) => {
   const dispatch = useDispatch();
   const currentCharacter = useSelector(state => state.character.character);
+  const cell = useSelector(state => state.drummer.composition[row][col]);
 
   const handleClick = useCallback(e => {
     e.stopPropagation();
-    currentCharacter === 'drummer' &&
-      dispatch(toggleDrummer({ row, col }));
-  }, [row, col, dispatch, currentCharacter]);
+    if (currentCharacter === 'drummer') {
+      const active = !cell.active;
+      dispatch(setDrummer({ row, col, active }));
+    }
+  }, [row, col, dispatch, currentCharacter, cell]);
 
-  const cell = useSelector(state => state.drummer.composition[row][col]);
   const isDrummer = currentCharacter === 'drummer';
   let className = 'piano-cell';
   isDrummer && (className += ' clickable')

@@ -31,7 +31,6 @@ const lennySlice = createSlice({
 
 export const {
   setCompositionCell,
-  toggleCompositionCell,
   setReverb,
   setLength,
   setPhaser,

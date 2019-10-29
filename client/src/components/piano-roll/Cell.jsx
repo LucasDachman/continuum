@@ -1,15 +1,15 @@
 import React, { useCallback, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleCompositionCell as toggle1 } from '../../redux/reducers/synth1Reducer';
-import { toggleCompositionCell as toggleBass } from '../../BassSynth/bassReducer';
-import { toggleCompositionCell as toggleLenny } from '../../LennySynth/lennyReducer';
+import { setCompositionCell as set1 } from '../../redux/reducers/synth1Reducer';
+import { setCompositionCell as setBass } from '../../BassSynth/bassReducer';
+import { setCompositionCell as setLenny } from '../../LennySynth/lennyReducer';
 import _ from 'lodash'
 import './cell.css';
 
-const toggleActions = {
-  synth1: toggle1,
-  bass: toggleBass,
-  lenny: toggleLenny,
+const setActions = {
+  synth1: set1,
+  bass: setBass,
+  lenny: setLenny,
 };
 
 const Cell = ({ row, col, playing }) => {
@@ -17,17 +17,19 @@ const Cell = ({ row, col, playing }) => {
 
   const currentCharacter = useSelector(state => state.character.character);
 
-  const handleClick = useCallback((e) => {
-    e.stopPropagation();
-    Boolean(toggleActions[currentCharacter]) &&
-      dispatch(toggleActions[currentCharacter]({ row, col }));
-  }, [row, col, currentCharacter, dispatch]);
-
   const cells = {
     synth1: useSelector(state => state.synth1.composition[row][col]),
     bass: useSelector(state => state.bass.composition[row][col]),
     lenny: useSelector(state => state.lenny.composition[row][col]),
   };
+
+  const handleClick = useCallback((e) => {
+    e.stopPropagation();
+    if (Boolean(setActions[currentCharacter])) {
+      const active = !cells[currentCharacter].active;
+      dispatch(setActions[currentCharacter]({ row, col, active }));
+    }
+  }, [row, col, currentCharacter, dispatch, cells]);
 
   // const className = currentCharacter in cells ? 'piano-cell clickable' : 'piano-cell';
   let className = 'piano-cell';

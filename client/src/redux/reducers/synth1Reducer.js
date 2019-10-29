@@ -40,5 +40,5 @@ const synth1Slice = createSlice({
   }
 });
 
-export const { setAmp, setFilter, setCompositionCell, toggleCompositionCell } = synth1Slice.actions;
+export const { setAmp, setFilter, setCompositionCell } = synth1Slice.actions;
 export default synth1Slice.reducer;

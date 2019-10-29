@@ -37,7 +37,6 @@ const bassSlice = createSlice({
 
 export const {
   setCompositionCell,
-  toggleCompositionCell,
   setLength,
   setShape,
   setFilterDecay,
