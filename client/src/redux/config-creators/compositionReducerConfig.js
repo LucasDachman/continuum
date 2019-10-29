@@ -11,23 +11,37 @@ export const startNote = 36;
 export const notes = [...scale('B3 minor').notes, ...scale('B4 minor').notes].map(nameToNote);
 
 export const createCompositionSliceConfig = () => ({
-  initialState: range(numNotes)
-    .map(i =>
-      range(numSteps)
-        .map(() => ({
-          active: false,
-          note: notes[i],
-          keyIndex: i
-        }))
-    ),
+  initialState: {
+    composition: range(numNotes)
+      .map(i =>
+        range(numSteps)
+          .map(() => ({
+            active: false,
+            note: notes[i],
+            keyIndex: i
+          }))
+      ),
+      numActive: 0
+  },
   reducers: {
     setCompositionCell(state, action) {
       const { row, col, active } = action.payload;
       state.composition[row][col].active = active;
+      if (active) {
+        state.numActive++;
+      } else {
+        state.numActive--;
+      }
     },
     toggleCompositionCell(state, action) {
       const { row, col } = action.payload;
-      state.composition[row][col].active = !state.composition[row][col].active;
+      const active = !state.composition[row][col].active
+      state.composition[row][col].active = active;
+      if (active) {
+        state.numActive++;
+      } else {
+        state.numActive--;
+      }
     },
     transpose(state, action) {
       const { semitones } = action.payload;
@@ -36,3 +50,9 @@ export const createCompositionSliceConfig = () => ({
     }
   }
 });
+
+// selectors
+
+export const maxReached = state => {
+  return state.numActive >= state.maxActive
+}

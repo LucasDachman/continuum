@@ -13,7 +13,7 @@ const bassSlice = createSlice({
       range: 0.3769,
       q: 0.1,
     },
-    composition: compositionReducerConfig.initialState
+    ...compositionReducerConfig.initialState
   },
   reducers: {
     ...compositionReducerConfig.reducers,

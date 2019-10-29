@@ -10,7 +10,7 @@ const lennySlice = createSlice({
     length: 0.25,
     phaser: false,
     vibratoDepth: 0.1,
-    composition: compositionReducerConfig.initialState
+    ...compositionReducerConfig.initialState
   },
   reducers: {
     ...compositionReducerConfig.reducers,

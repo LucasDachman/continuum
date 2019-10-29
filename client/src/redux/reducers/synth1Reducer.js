@@ -21,7 +21,7 @@ const synth1Slice = createSlice({
       range: 0.5,
       q: 0,
     },
-    composition: compositionReducerConfig.initialState
+    ...compositionReducerConfig.initialState
   },
   reducers: {
     setAmp(state, action) {

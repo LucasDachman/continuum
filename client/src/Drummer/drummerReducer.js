@@ -41,7 +41,7 @@ const drummerSlice = createSlice({
     files,
     filterFreq: 1,
     delay: 0.1,
-    composition: compositionSliceConfig.initialState,
+    ...compositionSliceConfig.initialState
   },
   reducers: {
     ...compositionSliceConfig.reducers,
