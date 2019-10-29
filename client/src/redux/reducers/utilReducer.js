@@ -1,11 +1,18 @@
 import { createSlice } from 'redux-starter-kit';
 
+const MAX = 20;
+
 const setNumActive = (state, action) => {
   const { active } = action.payload;
   if (active) {
     state.numActive += 1;
   } else {
     state.numActive -= 1;
+  }
+  if (state.numActive >= MAX) {
+    state.maxReached = true;
+  } else {
+    state.maxReached = false;
   }
 }
 
@@ -14,7 +21,8 @@ const utilSlice = createSlice({
     message: 'Hello, World',
     startTime: null,
     nextInterval: 0,
-    numActive: 0
+    numActive: 0,
+    maxReached: false,
   },
   reducers: {
     setMessage(state, action) {

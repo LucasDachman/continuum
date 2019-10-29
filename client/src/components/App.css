@@ -76,6 +76,10 @@ main {
   margin: auto 0px 0px 0px;
 }
 
+#control-panel #num-active {
+  margin: auto auto 0px auto;
+}
+
 #sequencer {
   grid-area: center;
   display: grid;

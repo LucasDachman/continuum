@@ -26,16 +26,6 @@ export const createCompositionSliceConfig = () => ({
       const { row, col, active } = action.payload;
       state.composition[row][col].active = active;
     },
-    // toggleCompositionCell(state, action) {
-    //   const { row, col } = action.payload;
-    //   const active = !state.composition[row][col].active
-    //   state.composition[row][col].active = active;
-    //   if (active) {
-    //     state.numActive++;
-    //   } else {
-    //     state.numActive--;
-    //   }
-    // },
     transpose(state, action) {
       const { semitones } = action.payload;
       state.composition = state.composition

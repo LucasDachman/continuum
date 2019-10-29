@@ -10,10 +10,11 @@ import LennySynth from '../LennySynth/LennySynth';
 import Drummer from '../Drummer/Drummer';
 
 const mapStateToProps = state => ({
-  character: state.character.character
+  numActive: state.util.numActive,
+  maxReached: state.util.maxReached,
 });
 
-const App = ({ character }) => {
+const App = ({ numActive, maxReached }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [tonic, setTonic] = useState(octaveNotes[0]);
   const [scale, setScale] = useState('major');
@@ -47,13 +48,14 @@ const App = ({ character }) => {
           <option value='Major'>Major</option>
           <option value='Minor'>Minor</option>
         </select>
+        <h1 id='num-active'>{maxReached ? 'MAX' : numActive}</h1>
       </section>
       <BassSynth />
       <LennySynth />
       <Drummer />
       <section id='sequencer'>
         <PianoRoll currentStep={currentStep} />
-        <DrumSequencer currentStep={currentStep}/>
+        <DrumSequencer currentStep={currentStep} />
       </section>
     </main>
   );

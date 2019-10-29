@@ -8,14 +8,16 @@ const Cell = ({ row, col, playing }) => {
   const dispatch = useDispatch();
   const currentCharacter = useSelector(state => state.character.character);
   const cell = useSelector(state => state.drummer.composition[row][col]);
+  const maxReached = useSelector(state => state.util.maxReached);
 
   const handleClick = useCallback(e => {
     e.stopPropagation();
     if (currentCharacter === 'drummer') {
       const active = !cell.active;
+      if (active && maxReached) return;
       dispatch(setDrummer({ row, col, active }));
     }
-  }, [row, col, dispatch, currentCharacter, cell]);
+  }, [row, col, dispatch, currentCharacter, cell, maxReached]);
 
   const isDrummer = currentCharacter === 'drummer';
   let className = 'piano-cell';

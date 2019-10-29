@@ -16,6 +16,7 @@ const Cell = ({ row, col, playing }) => {
   const dispatch = useDispatch();
 
   const currentCharacter = useSelector(state => state.character.character);
+  const maxReached = useSelector(state => state.util.maxReached);
 
   const cells = {
     synth1: useSelector(state => state.synth1.composition[row][col]),
@@ -27,9 +28,10 @@ const Cell = ({ row, col, playing }) => {
     e.stopPropagation();
     if (Boolean(setActions[currentCharacter])) {
       const active = !cells[currentCharacter].active;
+      if (active && maxReached) return;
       dispatch(setActions[currentCharacter]({ row, col, active }));
     }
-  }, [row, col, currentCharacter, dispatch, cells]);
+  }, [row, col, currentCharacter, dispatch, cells, maxReached]);
 
   // const className = currentCharacter in cells ? 'piano-cell clickable' : 'piano-cell';
   let className = 'piano-cell';
