@@ -1,7 +1,6 @@
 import io from 'socket.io-client';
 import makeStore from '../redux/store';
 import { setCharacter } from '../redux/reducers/characterReducer';
-import { sequencer } from '../index';
 
 const blackList = [
   'setCharacter',
