@@ -6,17 +6,21 @@ const numCharacters = characterOrder.length;
 let users = {};
 let intervalSet = false;
 
+const rotate = (users) => {
+  return Object.entries(users).reduce((acc, [id, character], i) => {
+    const position = characterOrder.indexOf(character)
+    const newChar = characterOrder[(position + 1) % numCharacters]
+    acc[id] = newChar;
+    return acc;
+  }, {});
+}
+
 export const setupSocketEvents = (socket, ioServer) => {
 
   if (!intervalSet) {
     intervalSet = true;
     setInterval(() => {
-      users = Object.entries(users).reduce((acc, [id, character], i) => {
-        const position = characterOrder.indexOf(character)
-        const newChar = characterOrder[(position + 1) % numCharacters]
-        acc[id] = newChar;
-        return acc;
-      }, {});
+      users = rotate(users);
       ioServer.sockets.emit('CHARACTER_CHANGE', { charactersById: users });
     }, INTERVAL_TIME);
   }
