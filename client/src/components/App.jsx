@@ -35,20 +35,12 @@ const App = ({ numActive, maxReached }) => {
     }
   }, []);
 
+  const nameColor = maxReached ? 'red' : 'black';
+
   return (
     <main>
       <section id='control-panel'>
-        <h1>Continuum</h1>
-        <select value={tonic} onChange={handleTonicChange}>
-          {
-            octaveNotes.map(note => <option key={note} value={note}>{note}</option>)
-          }
-        </select>
-        <select value={scale} onChange={handleScaleChange}>
-          <option value='Major'>Major</option>
-          <option value='Minor'>Minor</option>
-        </select>
-        <h1 id='num-active'>{maxReached ? 'MAX' : numActive}</h1>
+        <h1 style={{color: nameColor}}>Continuum</h1>
       </section>
       <BassSynth />
       <LennySynth />
