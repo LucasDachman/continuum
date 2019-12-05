@@ -23,6 +23,7 @@ const utilSlice = createSlice({
     nextInterval: 0,
     numActive: 0,
     maxReached: false,
+    countDown: null,
   },
   reducers: {
     setMessage(state, action) {
@@ -35,6 +36,9 @@ const utilSlice = createSlice({
     setNextInterval(state, action) {
       state.nextInterval = action.payload;
     },
+    setCountDown(state, action) {
+      state.countDown = action.payload;
+    }
   },
   extraReducers: {
     'bass/setCompositionCell': setNumActive,
@@ -47,5 +51,6 @@ export const {
   setMessage,
   setStartTime,
   setNextInterval,
+  setCountDown,
 } = utilSlice.actions;
 export default utilSlice.reducer;

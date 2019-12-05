@@ -1,10 +1,12 @@
 import io from 'socket.io-client';
 import makeStore from '../redux/store';
 import { setCharacter } from '../redux/reducers/characterReducer';
+import { setCountDown } from '../redux/reducers/utilReducer';
 
 const blackList = [
   'setCharacter',
-  'setNextInterval'
+  'setNextInterval',
+  'setCountDown'
 ]
 
 const charOverride = process.env.REACT_APP_CHAR;
@@ -48,7 +50,21 @@ export const makeStoreWithSocket = async () => {
   !charOverride &&
   socket.on('CHARACTER_CHANGE', ({ charactersById }) => {
     const character = charactersById[socket.id];
-    store.dispatch(setCharacter({ character }))
+    const countDown = (count) => {
+      setTimeout(() => {
+        if (count >= 0) {
+            store.dispatch(setCountDown(count));
+            if (count === 0) {
+              store.dispatch(setCountDown('Swap!'))
+              store.dispatch(setCharacter({ character }))
+            }
+            countDown(count - 1);
+        } else {
+          store.dispatch(setCountDown(null))
+        }
+      }, 1000);
+    }
+    countDown(5);
   });
 
   return store;

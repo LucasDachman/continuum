@@ -12,9 +12,10 @@ import Drummer from '../Drummer/Drummer';
 const mapStateToProps = state => ({
   numActive: state.util.numActive,
   maxReached: state.util.maxReached,
+  countDown: state.util.countDown
 });
 
-const App = ({ numActive, maxReached }) => {
+const App = ({ numActive, maxReached, countDown }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [tonic, setTonic] = useState(octaveNotes[0]);
   const [scale, setScale] = useState('major');
@@ -41,6 +42,7 @@ const App = ({ numActive, maxReached }) => {
     <main>
       <section id='control-panel'>
         <h1 style={{color: nameColor}}>Continuum</h1>
+        <h1 id='count-down'>{countDown}</h1>
       </section>
       <BassSynth />
       <LennySynth />
